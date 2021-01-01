@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class GetCharacterByIdResponse {
+public class GetCharacterByIdResponseType {
 
     @SerializedName("request_hash")
     @Expose
@@ -63,7 +63,7 @@ public class GetCharacterByIdResponse {
     @Expose
     private List<VoiceActor> voiceActors;
 
-    public GetCharacterByIdResponse(String requestHash, boolean requestCached, int requestCacheExpiry, int id, String url, String name, String nameInKanji, List<String> nicknames, String about, int memberFavorites, String imageUrl, List<CharacterRole> rolesInAnime, List<CharacterRole> rolesInManga, List<VoiceActor> voiceActors) {
+    public GetCharacterByIdResponseType(String requestHash, boolean requestCached, int requestCacheExpiry, int id, String url, String name, String nameInKanji, List<String> nicknames, String about, int memberFavorites, String imageUrl, List<CharacterRole> rolesInAnime, List<CharacterRole> rolesInManga, List<VoiceActor> voiceActors) {
         this.requestHash = requestHash;
         this.requestCached = requestCached;
         this.requestCacheExpiry = requestCacheExpiry;

@@ -8,7 +8,7 @@ import android.util.Log;
 import id.rllyhz.animeus.api.ApiClient;
 import id.rllyhz.animeus.api.data_service.AnimeAPIService;
 import id.rllyhz.animeus.api.response_type.GetAnimeByIdResponseType;
-import id.rllyhz.animeus.api.response_type.GetCharacterByIdResponse;
+import id.rllyhz.animeus.api.response_type.GetCharacterByIdResponseType;
 import id.rllyhz.animeus.api.response_type.GetMangaByIdResponse;
 import id.rllyhz.animeus.api.response_type.GetPersonByIdResponse;
 import id.rllyhz.animeus.helper.CustomToast;
@@ -57,17 +57,17 @@ public class SplashScreen extends AppCompatActivity {
             }
         });
 
-        Call<GetCharacterByIdResponse> characterCall = animeAPIService.getCharacterById(233);
-        characterCall.enqueue(new Callback<GetCharacterByIdResponse>() {
+        Call<GetCharacterByIdResponseType> characterCall = animeAPIService.getCharacterById(233);
+        characterCall.enqueue(new Callback<GetCharacterByIdResponseType>() {
             @Override
-            public void onResponse(Call<GetCharacterByIdResponse> call, Response<GetCharacterByIdResponse> response) {
+            public void onResponse(Call<GetCharacterByIdResponseType> call, Response<GetCharacterByIdResponseType> response) {
                 if (response.isSuccessful()) {
                     getCharacter(response.body());
                 }
             }
 
             @Override
-            public void onFailure(Call<GetCharacterByIdResponse> call, Throwable t) {
+            public void onFailure(Call<GetCharacterByIdResponseType> call, Throwable t) {
 
             }
         });
@@ -102,7 +102,7 @@ public class SplashScreen extends AppCompatActivity {
         }
     }
 
-    private void getCharacter(GetCharacterByIdResponse characterResult) {
+    private void getCharacter(GetCharacterByIdResponseType characterResult) {
         if (characterResult != null) {
             Log.d("TEST", "Character: " + characterResult.getName());
         }
