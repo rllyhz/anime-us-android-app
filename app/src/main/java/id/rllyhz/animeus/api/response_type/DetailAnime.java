@@ -7,16 +7,16 @@ public class DetailAnime {
 
     @SerializedName("mal_id")
     @Expose
-    public int id;
+    private int id;
     @SerializedName("type")
     @Expose
-    public String type;
+    private String type;
     @SerializedName("name")
     @Expose
-    public String name;
+    private String name;
     @SerializedName("url")
     @Expose
-    public String url;
+    private String url;
 
     public DetailAnime(int id, String type, String name, String url) {
         this.id = id;
