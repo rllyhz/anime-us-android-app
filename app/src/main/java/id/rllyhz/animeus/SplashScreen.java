@@ -40,8 +40,7 @@ public class SplashScreen extends AppCompatActivity {
             }
         });
 
-        AnimeAPIService service = ApiClient.getAnimeApiServiceInstance().create(AnimeAPIService.class);
-        Call<GetMangaByIdResponse> mangaCall = service.getMangaById(454);
+        Call<GetMangaByIdResponse> mangaCall = animeAPIService.getMangaById(454);
         mangaCall.enqueue(new Callback<GetMangaByIdResponse>() {
             @Override
             public void onResponse(Call<GetMangaByIdResponse> call, Response<GetMangaByIdResponse> response) {
