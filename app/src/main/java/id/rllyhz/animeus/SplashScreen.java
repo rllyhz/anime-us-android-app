@@ -24,6 +24,8 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        getSupportActionBar().setTitle("Rully");
+
         AnimeAPIService animeAPIService = ApiClient.getAnimeApiServiceInstance().create(AnimeAPIService.class);
         Call<GetTopCharactersResponseType> call = animeAPIService.getTopCharacters();
 
