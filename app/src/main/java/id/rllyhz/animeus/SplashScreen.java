@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import id.rllyhz.animeus.activity.MainActivity;
+import id.rllyhz.animeus.helper.CustomActionBar;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -14,6 +15,8 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splashscreen);
+
+        CustomActionBar.hide(SplashScreen.this);
 
         new Handler().postDelayed(() -> {
             startActivity(new Intent(SplashScreen.this, MainActivity.class));
