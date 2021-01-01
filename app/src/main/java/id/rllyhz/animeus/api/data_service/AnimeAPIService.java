@@ -1,6 +1,7 @@
 package id.rllyhz.animeus.api.data_service;
 
 import id.rllyhz.animeus.api.response_type.GetAnimeByIdResponse;
+import id.rllyhz.animeus.api.response_type.GetCharacterByIdResponse;
 import id.rllyhz.animeus.api.response_type.GetMangaByIdResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -15,4 +16,7 @@ public interface AnimeAPIService {
 
     @GET(VERSION_API + "/manga/{id}/")
     Call<GetMangaByIdResponse> getMangaById(@Path("id") int mangaId);
+
+    @GET(VERSION_API + "/character/{id}/")
+    Call<GetCharacterByIdResponse> getCharacterById(@Path("id") int characterId);
 }
