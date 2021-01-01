@@ -21,7 +21,7 @@ public class GetAnimeByIdResponse {
 
     @SerializedName("mal_id")
     @Expose
-    private int animeId;
+    private int id;
 
     @SerializedName("url")
     @Expose
@@ -143,11 +143,11 @@ public class GetAnimeByIdResponse {
     @Expose
     private List<String> endingThemes;
 
-    public GetAnimeByIdResponse(String requestHash, boolean requestCached, int requestCacheExpiry, int animeId, String url, String imageUrl, Object trailerUrl, String title, String titleEnglish, String titleJapanese, List<String> titleSynonyms, String type, String source, int episodes, String status, boolean airing, AiredTime aired, String duration, String rating, double score, int scoredBy, int rank, int popularity, int members, int favorites, String synopsis, String premiered, String broadcast, List<DetailAnime> producers, List<DetailAnime> licensors, List<DetailAnime> studios, List<DetailAnime> genres, List<String> openingThemes, List<String> endingThemes) {
+    public GetAnimeByIdResponse(String requestHash, boolean requestCached, int requestCacheExpiry, int id, String url, String imageUrl, Object trailerUrl, String title, String titleEnglish, String titleJapanese, List<String> titleSynonyms, String type, String source, int episodes, String status, boolean airing, AiredTime aired, String duration, String rating, double score, int scoredBy, int rank, int popularity, int members, int favorites, String synopsis, String premiered, String broadcast, List<DetailAnime> producers, List<DetailAnime> licensors, List<DetailAnime> studios, List<DetailAnime> genres, List<String> openingThemes, List<String> endingThemes) {
         this.requestHash = requestHash;
         this.requestCached = requestCached;
         this.requestCacheExpiry = requestCacheExpiry;
-        this.animeId = animeId;
+        this.id = id;
         this.url = url;
         this.imageUrl = imageUrl;
         this.trailerUrl = trailerUrl;
@@ -204,12 +204,12 @@ public class GetAnimeByIdResponse {
         this.requestCacheExpiry = requestCacheExpiry;
     }
 
-    public int getAnimeId() {
-        return animeId;
+    public int getId() {
+        return id;
     }
 
-    public void setAnimeId(int animeId) {
-        this.animeId = animeId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUrl() {
