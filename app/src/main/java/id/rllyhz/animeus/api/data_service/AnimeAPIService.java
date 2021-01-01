@@ -13,6 +13,6 @@ public interface AnimeAPIService {
     @GET(VERSION_API + "/anime/{id}/")
     Call<GetAnimeByIdResponse> getAnimeById(@Path("id") int animeId);
 
-    @GET(VERSION_API + "/manga/{id}")
+    @GET(VERSION_API + "/manga/{id}/")
     Call<GetMangaByIdResponse> getMangaById(@Path("id") int mangaId);
 }

@@ -7,16 +7,16 @@ public class MangaDetail {
 
     @SerializedName("mal_id")
     @Expose
-    private int id;
+    public int id;
     @SerializedName("type")
     @Expose
-    private String type;
+    public String type;
     @SerializedName("name")
     @Expose
-    private String name;
+    public String name;
     @SerializedName("url")
     @Expose
-    private String url;
+    public String url;
 
     public MangaDetail(int id, String type, String name, String url) {
         this.id = id;
