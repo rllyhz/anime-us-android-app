@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 public class CustomActionBar {
 
     public static void hide(AppCompatActivity activity) {
-        activity.getSupportActionBar().hide();
+        if (activity != null)
+            activity.getSupportActionBar().hide();
     }
 
     public static void setTitle(AppCompatActivity activity, CharSequence title) {
-        activity.getSupportActionBar().setTitle(title);
+        if (activity != null)
+            activity.getSupportActionBar().setTitle(title);
     }
 }
