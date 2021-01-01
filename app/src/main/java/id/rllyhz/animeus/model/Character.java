@@ -7,11 +7,11 @@ public class Character {
     private String name, nameInKanji, imageUrl, about;
     private ArrayList<String> nicknames;
     private ArrayList<CharacterRole> animeography, mangaography;
-    private ArrayList<VoiceActor> voiceActors;
+    private ArrayList<VoiceActor> voiceActorses;
 
     public Character() {}
 
-    public Character(int id, String name, String nameInKanji, String imageUrl, String about, ArrayList<String> nicknames, ArrayList<CharacterRole> animeography, ArrayList<CharacterRole> mangaography, ArrayList<VoiceActor> voiceActors) {
+    public Character(int id, String name, String nameInKanji, String imageUrl, String about, ArrayList<String> nicknames, ArrayList<CharacterRole> animeography, ArrayList<CharacterRole> mangaography, ArrayList<VoiceActor> voiceActorses) {
         this.id = id;
         this.name = name;
         this.nameInKanji = nameInKanji;
@@ -20,7 +20,7 @@ public class Character {
         this.nicknames = nicknames;
         this.animeography = animeography;
         this.mangaography = mangaography;
-        this.voiceActors = voiceActors;
+        this.voiceActorses = voiceActorses;
     }
 
     public int getId() {
@@ -87,11 +87,11 @@ public class Character {
         this.mangaography = mangaography;
     }
 
-    public ArrayList<VoiceActor> getVoiceActors() {
-        return voiceActors;
+    public ArrayList<VoiceActor> getVoiceActorses() {
+        return voiceActorses;
     }
 
-    public void setVoiceActors(ArrayList<VoiceActor> voiceActors) {
-        this.voiceActors = voiceActors;
+    public void setVoiceActorses(ArrayList<VoiceActor> voiceActorses) {
+        this.voiceActorses = voiceActorses;
     }
 }
