@@ -7,7 +7,7 @@ import android.util.Log;
 
 import id.rllyhz.animeus.api.ApiClient;
 import id.rllyhz.animeus.api.data_service.AnimeAPIService;
-import id.rllyhz.animeus.api.response_type.GetAnimeByIdResponse;
+import id.rllyhz.animeus.api.response_type.GetAnimeByIdResponseType;
 import id.rllyhz.animeus.api.response_type.GetCharacterByIdResponse;
 import id.rllyhz.animeus.api.response_type.GetMangaByIdResponse;
 import id.rllyhz.animeus.api.response_type.GetPersonByIdResponse;
@@ -25,10 +25,10 @@ public class SplashScreen extends AppCompatActivity {
 
         AnimeAPIService animeAPIService = ApiClient.getAnimeApiServiceInstance().create(AnimeAPIService.class);
 
-        Call<GetAnimeByIdResponse> animeCall = animeAPIService.getAnimeById(324);
-        animeCall.enqueue(new Callback<GetAnimeByIdResponse>() {
+        Call<GetAnimeByIdResponseType> animeCall = animeAPIService.getAnimeById(324);
+        animeCall.enqueue(new Callback<GetAnimeByIdResponseType>() {
             @Override
-            public void onResponse(Call<GetAnimeByIdResponse> call, Response<GetAnimeByIdResponse> response) {
+            public void onResponse(Call<GetAnimeByIdResponseType> call, Response<GetAnimeByIdResponseType> response) {
                 if (response.isSuccessful()) {
                     getAnime(response.body());
                 } else {
@@ -37,7 +37,7 @@ public class SplashScreen extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<GetAnimeByIdResponse> call, Throwable t) {
+            public void onFailure(Call<GetAnimeByIdResponseType> call, Throwable t) {
                 CustomToast.shortToast(SplashScreen.this, "Sorry... something went wrong. Please try again later!");
             }
         });
@@ -88,7 +88,7 @@ public class SplashScreen extends AppCompatActivity {
         });
     }
 
-    private void getAnime(GetAnimeByIdResponse animeResult) {
+    private void getAnime(GetAnimeByIdResponseType animeResult) {
         if (animeResult != null) {
             Log.d("TEST", "Anime: " + animeResult.getTitleJapanese());
         } else {

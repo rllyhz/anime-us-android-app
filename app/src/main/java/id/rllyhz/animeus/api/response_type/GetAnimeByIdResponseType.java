@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class GetAnimeByIdResponse {
+public class GetAnimeByIdResponseType {
 
     @SerializedName("request_hash")
     @Expose
@@ -143,7 +143,7 @@ public class GetAnimeByIdResponse {
     @Expose
     private List<String> endingThemes;
 
-    public GetAnimeByIdResponse(String requestHash, boolean requestCached, int requestCacheExpiry, int id, String url, String imageUrl, Object trailerUrl, String title, String titleEnglish, String titleJapanese, List<String> titleSynonyms, String type, String source, int episodes, String status, boolean isAiring, AiredTime airedTime, String duration, String rating, double score, int scoredBy, int rank, int popularity, int members, int favorites, String synopsis, String premiered, String broadcast, List<DetailAnime> producers, List<DetailAnime> licensors, List<DetailAnime> studios, List<DetailAnime> genres, List<String> openingThemes, List<String> endingThemes) {
+    public GetAnimeByIdResponseType(String requestHash, boolean requestCached, int requestCacheExpiry, int id, String url, String imageUrl, Object trailerUrl, String title, String titleEnglish, String titleJapanese, List<String> titleSynonyms, String type, String source, int episodes, String status, boolean isAiring, AiredTime airedTime, String duration, String rating, double score, int scoredBy, int rank, int popularity, int members, int favorites, String synopsis, String premiered, String broadcast, List<DetailAnime> producers, List<DetailAnime> licensors, List<DetailAnime> studios, List<DetailAnime> genres, List<String> openingThemes, List<String> endingThemes) {
         this.requestHash = requestHash;
         this.requestCached = requestCached;
         this.requestCacheExpiry = requestCacheExpiry;
