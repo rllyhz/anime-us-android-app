@@ -69,11 +69,11 @@ public class GetAnimeByIdResponse {
 
     @SerializedName("airing")
     @Expose
-    private boolean airing;
+    private boolean isAiring;
 
     @SerializedName("aired")
     @Expose
-    private AiredTime aired;
+    private AiredTime airedTime;
 
     @SerializedName("duration")
     @Expose
@@ -143,7 +143,7 @@ public class GetAnimeByIdResponse {
     @Expose
     private List<String> endingThemes;
 
-    public GetAnimeByIdResponse(String requestHash, boolean requestCached, int requestCacheExpiry, int id, String url, String imageUrl, Object trailerUrl, String title, String titleEnglish, String titleJapanese, List<String> titleSynonyms, String type, String source, int episodes, String status, boolean airing, AiredTime aired, String duration, String rating, double score, int scoredBy, int rank, int popularity, int members, int favorites, String synopsis, String premiered, String broadcast, List<DetailAnime> producers, List<DetailAnime> licensors, List<DetailAnime> studios, List<DetailAnime> genres, List<String> openingThemes, List<String> endingThemes) {
+    public GetAnimeByIdResponse(String requestHash, boolean requestCached, int requestCacheExpiry, int id, String url, String imageUrl, Object trailerUrl, String title, String titleEnglish, String titleJapanese, List<String> titleSynonyms, String type, String source, int episodes, String status, boolean isAiring, AiredTime airedTime, String duration, String rating, double score, int scoredBy, int rank, int popularity, int members, int favorites, String synopsis, String premiered, String broadcast, List<DetailAnime> producers, List<DetailAnime> licensors, List<DetailAnime> studios, List<DetailAnime> genres, List<String> openingThemes, List<String> endingThemes) {
         this.requestHash = requestHash;
         this.requestCached = requestCached;
         this.requestCacheExpiry = requestCacheExpiry;
@@ -159,8 +159,8 @@ public class GetAnimeByIdResponse {
         this.source = source;
         this.episodes = episodes;
         this.status = status;
-        this.airing = airing;
-        this.aired = aired;
+        this.isAiring = isAiring;
+        this.airedTime = airedTime;
         this.duration = duration;
         this.rating = rating;
         this.score = score;
@@ -301,19 +301,19 @@ public class GetAnimeByIdResponse {
     }
 
     public boolean isAiring() {
-        return airing;
+        return isAiring;
     }
 
     public void setAiring(boolean airing) {
-        this.airing = airing;
+        this.isAiring = airing;
     }
 
-    public AiredTime getAired() {
-        return aired;
+    public AiredTime getAiredTime() {
+        return airedTime;
     }
 
-    public void setAired(AiredTime aired) {
-        this.aired = aired;
+    public void setAiredTime(AiredTime airedTime) {
+        this.airedTime = airedTime;
     }
 
     public String getDuration() {
