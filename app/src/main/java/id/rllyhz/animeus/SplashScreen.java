@@ -10,6 +10,7 @@ import id.rllyhz.animeus.api.data_service.AnimeAPIService;
 import id.rllyhz.animeus.api.response_type.GetAnimeByIdResponse;
 import id.rllyhz.animeus.api.response_type.GetCharacterByIdResponse;
 import id.rllyhz.animeus.api.response_type.GetMangaByIdResponse;
+import id.rllyhz.animeus.api.response_type.GetPersonByIdResponse;
 import id.rllyhz.animeus.helper.CustomToast;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -89,6 +90,12 @@ public class SplashScreen extends AppCompatActivity {
     private void getCharacter(GetCharacterByIdResponse characterResult) {
         if (characterResult != null) {
             Log.d("TEST", "Character: " + characterResult.getName());
+        }
+    }
+
+    private void getPerson(GetPersonByIdResponse personResult) {
+        if (personResult != null) {
+            Log.d("TEST", "Person: " + personResult.getName());
         }
     }
 }
