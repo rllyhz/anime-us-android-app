@@ -71,6 +71,21 @@ public class SplashScreen extends AppCompatActivity {
 
             }
         });
+
+        Call<GetPersonByIdResponse> personCall = animeAPIService.getPersonById(343);
+        personCall.enqueue(new Callback<GetPersonByIdResponse>() {
+            @Override
+            public void onResponse(Call<GetPersonByIdResponse> call, Response<GetPersonByIdResponse> response) {
+                if (response.isSuccessful()) {
+                    getPerson(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GetPersonByIdResponse> call, Throwable t) {
+
+            }
+        });
     }
 
     private void getAnime(GetAnimeByIdResponse animeResult) {
