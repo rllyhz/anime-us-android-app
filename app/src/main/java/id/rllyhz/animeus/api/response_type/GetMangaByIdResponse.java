@@ -8,113 +8,109 @@ import java.util.List;
 public class GetMangaByIdResponse {
     @SerializedName("request_hash")
     @Expose
-    public String requestHash;
+    private String requestHash;
 
     @SerializedName("request_cached")
     @Expose
-    public boolean requestCached;
+    private boolean requestCached;
 
     @SerializedName("request_cache_expiry")
     @Expose
-    public int requestCacheExpiry;
+    private int requestCacheExpiry;
 
     @SerializedName("mal_id")
     @Expose
-    public int id;
+    private int id;
 
     @SerializedName("url")
     @Expose
-    public String url;
+    private String url;
 
     @SerializedName("title")
     @Expose
-    public String title;
+    private String title;
 
     @SerializedName("title_english")
     @Expose
-    public Object titleEnglish;
+    private Object titleEnglish;
 
     @SerializedName("title_synonyms")
     @Expose
-    public List<String> titleSynonyms;
+    private List<String> titleSynonyms;
 
     @SerializedName("title_japanese")
     @Expose
-    public String titleJapanese;
+    private String titleJapanese;
 
     @SerializedName("status")
     @Expose
-    public String status;
+    private String status;
 
     @SerializedName("image_url")
     @Expose
-    public String imageUrl;
+    private String imageUrl;
 
     @SerializedName("type")
     @Expose
-    public String type;
+    private String type;
 
     @SerializedName("volumes")
     @Expose
-    public int volumes;
+    private int volumes;
 
     @SerializedName("chapters")
     @Expose
-    public int chapters;
+    private int chapters;
 
     @SerializedName("publishing")
     @Expose
-    public boolean publishing;
+    private boolean publishing;
 
     @SerializedName("published")
     @Expose
-    public PublishedTime published;
+    private PublishedTime published;
 
     @SerializedName("rank")
     @Expose
-    public int rank;
+    private int rank;
 
     @SerializedName("score")
     @Expose
-    public Object score;
-
-    @SerializedName("scored_by")
-    @Expose
-    public Object scoredBy;
+    private double score;
 
     @SerializedName("popularity")
     @Expose
-    public int popularity;
+    private int popularity;
 
     @SerializedName("members")
     @Expose
-    public int members;
+    private int members;
 
     @SerializedName("favorites")
     @Expose
-    public int favorites;
+    private int favorites;
 
     @SerializedName("synopsis")
     @Expose
-    public String synopsis;
+    private String synopsis;
 
     @SerializedName("background")
     @Expose
-    public Object background;
+    private Object background;
 
     @SerializedName("genres")
     @Expose
-    public List<MangaDetail> genres;
+    private List<MangaDetail> genres;
 
     @SerializedName("authors")
     @Expose
-    public List<MangaDetail> authors;
+    private List<MangaDetail> authors;
 
     @SerializedName("serializations")
     @Expose
-    public List<MangaDetail> serializations;
+    private List<MangaDetail> serializations;
 
-    public GetMangaByIdResponse(String requestHash, boolean requestCached, int requestCacheExpiry, int id, String url, String title, Object titleEnglish, List<String> titleSynonyms, String titleJapanese, String status, String imageUrl, String type, int volumes, int chapters, boolean publishing, PublishedTime published, int rank, Object score, Object scoredBy, int popularity, int members, int favorites, String synopsis, Object background, List<MangaDetail> genres, List<MangaDetail> authors, List<MangaDetail> serializations) {
+    public GetMangaByIdResponse(String requestHash, boolean requestCached, int requestCacheExpiry, int id, String url, String title, Object titleEnglish, List<String> titleSynonyms, String titleJapanese, String status, String imageUrl, String type, int volumes, int chapters, boolean publishing, PublishedTime published, int rank, double score, int popularity, int members, int favorites, String synopsis, Object background, List<MangaDetail> genres, List<MangaDetail> authors, List<MangaDetail> serializations) {
         this.requestHash = requestHash;
         this.requestCached = requestCached;
         this.requestCacheExpiry = requestCacheExpiry;
@@ -133,7 +129,6 @@ public class GetMangaByIdResponse {
         this.published = published;
         this.rank = rank;
         this.score = score;
-        this.scoredBy = scoredBy;
         this.popularity = popularity;
         this.members = members;
         this.favorites = favorites;
@@ -212,12 +207,8 @@ public class GetMangaByIdResponse {
         return rank;
     }
 
-    public Object getScore() {
+    public double getScore() {
         return score;
-    }
-
-    public Object getScoredBy() {
-        return scoredBy;
     }
 
     public int getPopularity() {
