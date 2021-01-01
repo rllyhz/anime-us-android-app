@@ -33,6 +33,6 @@ public interface AnimeAPIService {
     @GET(VERSION_API + "/top/manga/1/")
     Call<GetTopMangaResponseType> getTopManga();
 
-    @GET(VERSION_API + "/top/character/1/")
+    @GET(VERSION_API + "/top/characters/1/")
     Call<GetTopCharactersResponseType> getTopCharacters();
 }
