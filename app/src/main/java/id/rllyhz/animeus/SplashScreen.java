@@ -8,6 +8,7 @@ import android.util.Log;
 import id.rllyhz.animeus.api.ApiClient;
 import id.rllyhz.animeus.api.data_service.AnimeAPIService;
 import id.rllyhz.animeus.api.response_type.GetAnimeByIdResponse;
+import id.rllyhz.animeus.api.response_type.GetCharacterByIdResponse;
 import id.rllyhz.animeus.api.response_type.GetMangaByIdResponse;
 import id.rllyhz.animeus.helper.CustomToast;
 import retrofit2.Call;
@@ -54,6 +55,21 @@ public class SplashScreen extends AppCompatActivity {
 
             }
         });
+
+        Call<GetCharacterByIdResponse> characterCall = animeAPIService.getCharacterById(233);
+        characterCall.enqueue(new Callback<GetCharacterByIdResponse>() {
+            @Override
+            public void onResponse(Call<GetCharacterByIdResponse> call, Response<GetCharacterByIdResponse> response) {
+                if (response.isSuccessful()) {
+                    getCharacter(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GetCharacterByIdResponse> call, Throwable t) {
+
+            }
+        });
     }
 
     private void getAnime(GetAnimeByIdResponse animeResult) {
@@ -67,6 +83,12 @@ public class SplashScreen extends AppCompatActivity {
     private void getManga(GetMangaByIdResponse mangaResult) {
         if (mangaResult != null) {
             Log.d("TEST", "Manga: " + mangaResult.getTitleJapanese());
+        }
+    }
+
+    private void getCharacter(GetCharacterByIdResponse characterResult) {
+        if (characterResult != null) {
+            Log.d("TEST", "Character: " + characterResult.getName());
         }
     }
 }
