@@ -5,14 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
-import java.util.List;
-
 import id.rllyhz.animeus.api.ApiClient;
 import id.rllyhz.animeus.api.data_service.AnimeAPIService;
-import id.rllyhz.animeus.api.data_service.PhotoAPIService;
 import id.rllyhz.animeus.api.response_type.GetAnimeByIdResponse;
-import id.rllyhz.animeus.api.response_type.RetroPhoto;
-import id.rllyhz.animeus.api.response_type.Test;
+import id.rllyhz.animeus.helper.CustomToast;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -25,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         AnimeAPIService animeAPIService = ApiClient.getAnimeApiServiceInstance().create(AnimeAPIService.class);
-        Call<GetAnimeByIdResponse> animeCall = animeAPIService.getAnimeById();
+        Call<GetAnimeByIdResponse> animeCall = animeAPIService.getAnimeById(324);
         animeCall.enqueue(new Callback<GetAnimeByIdResponse>() {
             @Override
             public void onResponse(Call<GetAnimeByIdResponse> call, Response<GetAnimeByIdResponse> response) {
@@ -38,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<GetAnimeByIdResponse> call, Throwable t) {
-
+                CustomToast.shortToast(MainActivity.this, "Sorry... something went wrong. Please try again later!");
             }
         });
     }

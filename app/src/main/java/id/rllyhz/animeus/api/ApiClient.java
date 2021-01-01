@@ -7,7 +7,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
     private static Retrofit animeApiServiceInstance;
-    private static Retrofit photoApiServiceInstance;
 
     public static Retrofit getAnimeApiServiceInstance()
     {
@@ -19,17 +18,5 @@ public class ApiClient {
         }
 
         return animeApiServiceInstance;
-    }
-
-    public static Retrofit getPhotoApiServiceInstance()
-    {
-        if (photoApiServiceInstance == null) {
-            photoApiServiceInstance = new Retrofit.Builder()
-                    .baseUrl(PhotoAPIService.BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-        }
-
-        return photoApiServiceInstance;
     }
 }
