@@ -5,7 +5,7 @@ import id.rllyhz.animeus.api.response_type.GetCharacterByIdResponseType;
 import id.rllyhz.animeus.api.response_type.GetMangaByIdResponseType;
 import id.rllyhz.animeus.api.response_type.GetPersonByIdResponseType;
 import id.rllyhz.animeus.api.response_type.GetTopAnimeResponseType;
-import id.rllyhz.animeus.api.response_type.GetTopMangaResponse;
+import id.rllyhz.animeus.api.response_type.GetTopMangaResponseType;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -30,5 +30,5 @@ public interface AnimeAPIService {
     Call<GetTopAnimeResponseType> getTopAnime();
 
     @GET(VERSION_API + "/top/manga/1/")
-    Call<GetTopMangaResponse> getTopManga();
+    Call<GetTopMangaResponseType> getTopManga();
 }
