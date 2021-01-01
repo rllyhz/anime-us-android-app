@@ -23,4 +23,32 @@ public class CharacterRole {
     @SerializedName("role")
     @Expose
     private String role;
+
+    public CharacterRole(int id, String name, String url, String imageUrl, String role) {
+        this.id = id;
+        this.name = name;
+        this.url = url;
+        this.imageUrl = imageUrl;
+        this.role = role;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public String getRole() {
+        return role;
+    }
 }
