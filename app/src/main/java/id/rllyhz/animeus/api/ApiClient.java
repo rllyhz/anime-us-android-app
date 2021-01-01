@@ -1,20 +1,35 @@
 package id.rllyhz.animeus.api;
 
+import id.rllyhz.animeus.api.data_service.AnimeAPIService;
+import id.rllyhz.animeus.api.data_service.PhotoAPIService;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
-    private static Retrofit retrofit;
-    public static final String BASEURL = "https://api.jikan.moe/v3/";
+    private static Retrofit animeApiServiceInstance;
+    private static Retrofit photoApiServiceInstance;
 
-    public static Retrofit getApiClientInstance() {
-        if (retrofit == null) {
-            retrofit = new Retrofit.Builder()
-                    .baseUrl(BASEURL)
+    public static Retrofit getAnimeApiServiceInstance()
+    {
+        if (animeApiServiceInstance == null) {
+            animeApiServiceInstance = new Retrofit.Builder()
+                    .baseUrl(AnimeAPIService.BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }
 
-        return retrofit;
+        return animeApiServiceInstance;
+    }
+
+    public static Retrofit getPhotoApiServiceInstance()
+    {
+        if (photoApiServiceInstance == null) {
+            photoApiServiceInstance = new Retrofit.Builder()
+                    .baseUrl(PhotoAPIService.BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+        }
+
+        return photoApiServiceInstance;
     }
 }

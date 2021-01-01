@@ -5,7 +5,8 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface AnimeAPIService {
+    public static final String BASE_URL = "https://api.jikan.moe/v3/";
 
-    @GET("/anime/343")
+    @GET("/anime/354/")
     Call<GetAnimeByIdResponse> getAnimeById();
 }
