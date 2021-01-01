@@ -86,6 +86,53 @@ public class GetTopCharactersResponseType {
         @Expose
         private String imageUrl;
 
+        public Character(int id, int rank, String title, String url, String nameInKanji, List<Animeography> rolesInAnime, List<Mangaography> rolesInManga, int favorites, String imageUrl) {
+            this.id = id;
+            this.rank = rank;
+            this.title = title;
+            this.url = url;
+            this.nameInKanji = nameInKanji;
+            this.rolesInAnime = rolesInAnime;
+            this.rolesInManga = rolesInManga;
+            this.favorites = favorites;
+            this.imageUrl = imageUrl;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public int getRank() {
+            return rank;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+        public String getNameInKanji() {
+            return nameInKanji;
+        }
+
+        public List<Animeography> getRolesInAnime() {
+            return rolesInAnime;
+        }
+
+        public List<Mangaography> getRolesInManga() {
+            return rolesInManga;
+        }
+
+        public int getFavorites() {
+            return favorites;
+        }
+
+        public String getImageUrl() {
+            return imageUrl;
+        }
 
         /*
          * Animeography Type

@@ -45,6 +45,7 @@ public class SplashScreen extends AppCompatActivity {
     }
 
     private void processData(GetTopCharactersResponseType topCharacters) {
-        topCharacters
+        String topFirstCharacterTitle = topCharacters.getCharacterList().get(0).getTitle();
+        CustomToast.longToast(getApplicationContext(), topFirstCharacterTitle);
     }
 }
