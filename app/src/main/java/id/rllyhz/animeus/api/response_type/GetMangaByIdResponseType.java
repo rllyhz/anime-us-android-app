@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class GetMangaByIdResponse {
+public class GetMangaByIdResponseType {
     @SerializedName("request_hash")
     @Expose
     private String requestHash;
@@ -110,7 +110,7 @@ public class GetMangaByIdResponse {
     @Expose
     private List<MangaDetail> serializations;
 
-    public GetMangaByIdResponse(String requestHash, boolean requestCached, int requestCacheExpiry, int id, String url, String title, Object titleEnglish, List<String> titleSynonyms, String titleJapanese, String status, String imageUrl, String type, int volumes, int chapters, boolean publishing, PublishedTime published, int rank, double score, int popularity, int members, int favorites, String synopsis, Object background, List<MangaDetail> genres, List<MangaDetail> authors, List<MangaDetail> serializations) {
+    public GetMangaByIdResponseType(String requestHash, boolean requestCached, int requestCacheExpiry, int id, String url, String title, Object titleEnglish, List<String> titleSynonyms, String titleJapanese, String status, String imageUrl, String type, int volumes, int chapters, boolean publishing, PublishedTime published, int rank, double score, int popularity, int members, int favorites, String synopsis, Object background, List<MangaDetail> genres, List<MangaDetail> authors, List<MangaDetail> serializations) {
         this.requestHash = requestHash;
         this.requestCached = requestCached;
         this.requestCacheExpiry = requestCacheExpiry;

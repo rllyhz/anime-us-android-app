@@ -9,7 +9,7 @@ import id.rllyhz.animeus.api.ApiClient;
 import id.rllyhz.animeus.api.data_service.AnimeAPIService;
 import id.rllyhz.animeus.api.response_type.GetAnimeByIdResponseType;
 import id.rllyhz.animeus.api.response_type.GetCharacterByIdResponseType;
-import id.rllyhz.animeus.api.response_type.GetMangaByIdResponse;
+import id.rllyhz.animeus.api.response_type.GetMangaByIdResponseType;
 import id.rllyhz.animeus.api.response_type.GetPersonByIdResponse;
 import id.rllyhz.animeus.helper.CustomToast;
 import retrofit2.Call;
@@ -42,17 +42,17 @@ public class SplashScreen extends AppCompatActivity {
             }
         });
 
-        Call<GetMangaByIdResponse> mangaCall = animeAPIService.getMangaById(454);
-        mangaCall.enqueue(new Callback<GetMangaByIdResponse>() {
+        Call<GetMangaByIdResponseType> mangaCall = animeAPIService.getMangaById(454);
+        mangaCall.enqueue(new Callback<GetMangaByIdResponseType>() {
             @Override
-            public void onResponse(Call<GetMangaByIdResponse> call, Response<GetMangaByIdResponse> response) {
+            public void onResponse(Call<GetMangaByIdResponseType> call, Response<GetMangaByIdResponseType> response) {
                 if (response.isSuccessful()) {
                     getManga(response.body());
                 }
             }
 
             @Override
-            public void onFailure(Call<GetMangaByIdResponse> call, Throwable t) {
+            public void onFailure(Call<GetMangaByIdResponseType> call, Throwable t) {
 
             }
         });
@@ -96,7 +96,7 @@ public class SplashScreen extends AppCompatActivity {
         }
     }
 
-    private void getManga(GetMangaByIdResponse mangaResult) {
+    private void getManga(GetMangaByIdResponseType mangaResult) {
         if (mangaResult != null) {
             Log.d("TEST", "Manga: " + mangaResult.getTitleJapanese());
         }
