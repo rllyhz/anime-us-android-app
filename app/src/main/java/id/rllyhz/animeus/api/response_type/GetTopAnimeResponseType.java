@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class GetTopAnimeResponse {
+public class GetTopAnimeResponseType {
     @SerializedName("request_hash")
     @Expose
     private String requestHash;
@@ -22,7 +22,7 @@ public class GetTopAnimeResponse {
     @Expose
     private List<Anime> animeList;
 
-    public GetTopAnimeResponse(String requestHash, boolean requestCached, int requestCacheExpiry, List<Anime> animeList) {
+    public GetTopAnimeResponseType(String requestHash, boolean requestCached, int requestCacheExpiry, List<Anime> animeList) {
         this.requestHash = requestHash;
         this.requestCached = requestCached;
         this.requestCacheExpiry = requestCacheExpiry;
