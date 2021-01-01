@@ -10,7 +10,7 @@ import id.rllyhz.animeus.api.data_service.AnimeAPIService;
 import id.rllyhz.animeus.api.response_type.GetAnimeByIdResponseType;
 import id.rllyhz.animeus.api.response_type.GetCharacterByIdResponseType;
 import id.rllyhz.animeus.api.response_type.GetMangaByIdResponseType;
-import id.rllyhz.animeus.api.response_type.GetPersonByIdResponse;
+import id.rllyhz.animeus.api.response_type.GetPersonByIdResponseType;
 import id.rllyhz.animeus.helper.CustomToast;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -72,17 +72,17 @@ public class SplashScreen extends AppCompatActivity {
             }
         });
 
-        Call<GetPersonByIdResponse> personCall = animeAPIService.getPersonById(343);
-        personCall.enqueue(new Callback<GetPersonByIdResponse>() {
+        Call<GetPersonByIdResponseType> personCall = animeAPIService.getPersonById(343);
+        personCall.enqueue(new Callback<GetPersonByIdResponseType>() {
             @Override
-            public void onResponse(Call<GetPersonByIdResponse> call, Response<GetPersonByIdResponse> response) {
+            public void onResponse(Call<GetPersonByIdResponseType> call, Response<GetPersonByIdResponseType> response) {
                 if (response.isSuccessful()) {
                     getPerson(response.body());
                 }
             }
 
             @Override
-            public void onFailure(Call<GetPersonByIdResponse> call, Throwable t) {
+            public void onFailure(Call<GetPersonByIdResponseType> call, Throwable t) {
 
             }
         });
@@ -108,7 +108,7 @@ public class SplashScreen extends AppCompatActivity {
         }
     }
 
-    private void getPerson(GetPersonByIdResponse personResult) {
+    private void getPerson(GetPersonByIdResponseType personResult) {
         if (personResult != null) {
             Log.d("TEST", "Person: " + personResult.getName());
         }

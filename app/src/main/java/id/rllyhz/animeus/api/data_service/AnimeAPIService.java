@@ -3,7 +3,7 @@ package id.rllyhz.animeus.api.data_service;
 import id.rllyhz.animeus.api.response_type.GetAnimeByIdResponseType;
 import id.rllyhz.animeus.api.response_type.GetCharacterByIdResponseType;
 import id.rllyhz.animeus.api.response_type.GetMangaByIdResponseType;
-import id.rllyhz.animeus.api.response_type.GetPersonByIdResponse;
+import id.rllyhz.animeus.api.response_type.GetPersonByIdResponseType;
 import id.rllyhz.animeus.api.response_type.GetTopAnimeResponse;
 import id.rllyhz.animeus.api.response_type.GetTopMangaResponse;
 import retrofit2.Call;
@@ -24,7 +24,7 @@ public interface AnimeAPIService {
     Call<GetCharacterByIdResponseType> getCharacterById(@Path("id") int characterId);
 
     @GET(VERSION_API + "/person/{id}/")
-    Call<GetPersonByIdResponse> getPersonById(@Path("id") int personId);
+    Call<GetPersonByIdResponseType> getPersonById(@Path("id") int personId);
 
     @GET(VERSION_API + "/top/anime/1/")
     Call<GetTopAnimeResponse> getTopAnime();
