@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class GetTopCharactersResponse {
+public class GetTopCharactersResponseType {
     @SerializedName("request_hash")
     @Expose
     private String requestHash;
