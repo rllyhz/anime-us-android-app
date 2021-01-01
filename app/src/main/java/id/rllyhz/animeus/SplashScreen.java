@@ -41,7 +41,7 @@ public class SplashScreen extends AppCompatActivity {
 
     private void getData(GetAnimeByIdResponse animeResult) {
         if (animeResult != null) {
-            Log.d("TEST", animeResult.getAired().stringFormat);
+            Log.d("TEST", animeResult.getAired());
         } else {
             Log.d("TEST", "Null");
         }

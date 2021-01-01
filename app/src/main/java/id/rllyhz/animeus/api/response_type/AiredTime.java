@@ -24,6 +24,21 @@ public class AiredTime {
         this.stringFormat = stringFormat;
     }
 
+    public String getFromStringFormat() {
+        return fromStringFormat;
+    }
+
+    public String getToStringFormat() {
+        return toStringFormat;
+    }
+
+    public Prop getProp() {
+        return prop;
+    }
+
+    public String getStringFormat() {
+        return stringFormat;
+    }
 
     /*
      * Prop type
