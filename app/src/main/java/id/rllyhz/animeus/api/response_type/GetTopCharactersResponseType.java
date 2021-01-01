@@ -22,6 +22,29 @@ public class GetTopCharactersResponseType {
     @Expose
     private List<Character> characterList;
 
+    public GetTopCharactersResponseType(String requestHash, boolean requestCached, int requestCacheExpiry, List<Character> characterList) {
+        this.requestHash = requestHash;
+        this.requestCached = requestCached;
+        this.requestCacheExpiry = requestCacheExpiry;
+        this.characterList = characterList;
+    }
+
+    public String getRequestHash() {
+        return requestHash;
+    }
+
+    public boolean isRequestCached() {
+        return requestCached;
+    }
+
+    public int getRequestCacheExpiry() {
+        return requestCacheExpiry;
+    }
+
+    public List<Character> getCharacterList() {
+        return characterList;
+    }
+
 
     /*
      * Character Type

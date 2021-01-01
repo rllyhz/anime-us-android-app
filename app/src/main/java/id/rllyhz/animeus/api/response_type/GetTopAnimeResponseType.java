@@ -45,6 +45,7 @@ public class GetTopAnimeResponseType {
         return animeList;
     }
 
+
     /*
      * Anime Type
      * */

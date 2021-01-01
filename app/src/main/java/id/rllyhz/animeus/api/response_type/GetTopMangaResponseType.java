@@ -45,6 +45,8 @@ public class GetTopMangaResponseType {
         return mangaList;
     }
 
+
+
     /*
      * Manga Type
      * */

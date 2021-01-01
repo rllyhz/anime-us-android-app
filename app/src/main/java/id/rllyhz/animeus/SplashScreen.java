@@ -11,6 +11,7 @@ import id.rllyhz.animeus.api.response_type.GetAnimeByIdResponseType;
 import id.rllyhz.animeus.api.response_type.GetCharacterByIdResponseType;
 import id.rllyhz.animeus.api.response_type.GetMangaByIdResponseType;
 import id.rllyhz.animeus.api.response_type.GetPersonByIdResponseType;
+import id.rllyhz.animeus.api.response_type.GetTopCharactersResponseType;
 import id.rllyhz.animeus.helper.CustomToast;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,93 +25,26 @@ public class SplashScreen extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         AnimeAPIService animeAPIService = ApiClient.getAnimeApiServiceInstance().create(AnimeAPIService.class);
+        Call<GetTopCharactersResponseType> call = animeAPIService.getTopCharacters();
 
-        Call<GetAnimeByIdResponseType> animeCall = animeAPIService.getAnimeById(324);
-        animeCall.enqueue(new Callback<GetAnimeByIdResponseType>() {
+        call.enqueue(new Callback<GetTopCharactersResponseType>() {
             @Override
-            public void onResponse(Call<GetAnimeByIdResponseType> call, Response<GetAnimeByIdResponseType> response) {
+            public void onResponse(Call<GetTopCharactersResponseType> call, Response<GetTopCharactersResponseType> response) {
                 if (response.isSuccessful()) {
-                    getAnime(response.body());
+                    processData(response.body());
                 } else {
-                    Log.d("TEST", "ERROR : " + response.message());
+                    CustomToast.shortToast(SplashScreen.this, response.message());
                 }
             }
 
             @Override
-            public void onFailure(Call<GetAnimeByIdResponseType> call, Throwable t) {
-                CustomToast.shortToast(SplashScreen.this, "Sorry... something went wrong. Please try again later!");
-            }
-        });
-
-        Call<GetMangaByIdResponseType> mangaCall = animeAPIService.getMangaById(454);
-        mangaCall.enqueue(new Callback<GetMangaByIdResponseType>() {
-            @Override
-            public void onResponse(Call<GetMangaByIdResponseType> call, Response<GetMangaByIdResponseType> response) {
-                if (response.isSuccessful()) {
-                    getManga(response.body());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<GetMangaByIdResponseType> call, Throwable t) {
-
-            }
-        });
-
-        Call<GetCharacterByIdResponseType> characterCall = animeAPIService.getCharacterById(233);
-        characterCall.enqueue(new Callback<GetCharacterByIdResponseType>() {
-            @Override
-            public void onResponse(Call<GetCharacterByIdResponseType> call, Response<GetCharacterByIdResponseType> response) {
-                if (response.isSuccessful()) {
-                    getCharacter(response.body());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<GetCharacterByIdResponseType> call, Throwable t) {
-
-            }
-        });
-
-        Call<GetPersonByIdResponseType> personCall = animeAPIService.getPersonById(343);
-        personCall.enqueue(new Callback<GetPersonByIdResponseType>() {
-            @Override
-            public void onResponse(Call<GetPersonByIdResponseType> call, Response<GetPersonByIdResponseType> response) {
-                if (response.isSuccessful()) {
-                    getPerson(response.body());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<GetPersonByIdResponseType> call, Throwable t) {
-
+            public void onFailure(Call<GetTopCharactersResponseType> call, Throwable t) {
+                CustomToast.shortToast(SplashScreen.this, t.getMessage());
             }
         });
     }
 
-    private void getAnime(GetAnimeByIdResponseType animeResult) {
-        if (animeResult != null) {
-            Log.d("TEST", "Anime: " + animeResult.getTitleJapanese());
-        } else {
-            Log.d("TEST", "Null");
-        }
-    }
-
-    private void getManga(GetMangaByIdResponseType mangaResult) {
-        if (mangaResult != null) {
-            Log.d("TEST", "Manga: " + mangaResult.getTitleJapanese());
-        }
-    }
-
-    private void getCharacter(GetCharacterByIdResponseType characterResult) {
-        if (characterResult != null) {
-            Log.d("TEST", "Character: " + characterResult.getName());
-        }
-    }
-
-    private void getPerson(GetPersonByIdResponseType personResult) {
-        if (personResult != null) {
-            Log.d("TEST", "Person: " + personResult.getName());
-        }
+    private void processData(GetTopCharactersResponseType topCharacters) {
+        topCharacters
     }
 }
