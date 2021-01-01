@@ -10,5 +10,5 @@ public interface AnimeAPIService {
     String VERSION_API = "v3";
 
     @GET(VERSION_API + "/anime/354/")
-    Call<Test> getAnimeById();
+    Call<GetAnimeByIdResponse> getAnimeById();
 }

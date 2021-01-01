@@ -25,10 +25,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         AnimeAPIService animeAPIService = ApiClient.getAnimeApiServiceInstance().create(AnimeAPIService.class);
-        Call<Test> animeCall = animeAPIService.getAnimeById();
-        animeCall.enqueue(new Callback<Test>() {
+        Call<GetAnimeByIdResponse> animeCall = animeAPIService.getAnimeById();
+        animeCall.enqueue(new Callback<GetAnimeByIdResponse>() {
             @Override
-            public void onResponse(Call<Test> call, Response<Test> response) {
+            public void onResponse(Call<GetAnimeByIdResponse> call, Response<GetAnimeByIdResponse> response) {
                 if (response.isSuccessful()) {
                     getData(response.body());
                 } else {
@@ -37,15 +37,15 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Test> call, Throwable t) {
+            public void onFailure(Call<GetAnimeByIdResponse> call, Throwable t) {
 
             }
         });
     }
 
-    private void getData(Test test) {
-        if (test != null) {
-            Log.d("TEST", test.getTitle());
+    private void getData(GetAnimeByIdResponse animeResult) {
+        if (animeResult != null) {
+            Log.d("TEST", animeResult.getAired().stringFormat);
         } else {
             Log.d("TEST", "Null");
         }
