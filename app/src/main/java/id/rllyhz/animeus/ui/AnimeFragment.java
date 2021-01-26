@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -59,6 +60,14 @@ public class AnimeFragment extends Fragment {
         }
 
         AnimeAdapter adapter = new AnimeAdapter(getContext(), animeList);
+
+        adapter.setOnItemClickListener((view, position) -> Toast.makeText(getContext(), "Clicked at item: " + position, Toast.LENGTH_SHORT).show());
+
+        adapter.setOnItemLongClickListener((view, position) -> {
+            Toast.makeText(getContext(), "Long Click at item: " + position, Toast.LENGTH_SHORT).show();
+            return false;
+        });
+
         recyclerViewAnime.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewAnime.setAdapter(adapter);
     }

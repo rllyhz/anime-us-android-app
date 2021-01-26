@@ -9,5 +9,6 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="backgroundColor">#DBF6FF</color>
-    <color name="primaryColor">#5C1DA9</color>
+    <color name="primaryColor">#FF5C1DA9</color>
+    <color name="primaryColorLight">#FFC5B1E6</color>
 </resources>
