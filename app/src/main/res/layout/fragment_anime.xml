@@ -1,15 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundColor">
+    android:background="@color/backgroundColor"
+    android:orientation="vertical"
+    android:padding="8dp">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Anime"
-        android:textColor="@color/black"
-        android:textSize="34sp" />
+        android:text="Anime Top"
+        android:textColor="@color/primaryColor"
+        android:textSize="21sp"
+        android:textStyle="bold" />
 
-</RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/card_anime_bg"
+        android:padding="12dp">
+
+        <ImageView
+            android:id="@+id/anime_top_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:background="@mipmap/ic_launcher_round" />
+
+        <TextView
+            android:id="@+id/anime_top_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/anime_top_image"
+            android:layout_marginLeft="12dp"
+            android:layout_toRightOf="@id/anime_top_image"
+            android:text="Top Anime"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/anime_top_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/anime_top_title"
+            android:layout_marginLeft="12dp"
+            android:layout_toRightOf="@id/anime_top_image"
+            android:text="Anime Top Description"
+            android:textColor="#C5B1E6"
+            android:textSize="16sp" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/anime_top_description"
+            android:layout_alignLeft="@id/anime_top_description"
+            android:layout_marginTop="8dp"
+            android:drawableLeft="@drawable/ic_star"
+            android:drawablePadding="6dp"
+            android:gravity="center_vertical"
+            android:text="Top rank"
+            android:textColor="#C5B1E6"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="26dp"
+        android:layout_marginBottom="12dp"
+        android:text="Anime List"
+        android:textColor="@color/primaryColor"
+        android:textSize="21sp"
+        android:textStyle="bold" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_anime"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="8dp"
+        android:scrollbars="vertical"
+        tools:listitem="@layout/anime_item" />
+
+</LinearLayout>
