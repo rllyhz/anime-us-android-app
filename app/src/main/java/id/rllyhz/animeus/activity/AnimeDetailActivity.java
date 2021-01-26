@@ -1,16 +1,19 @@
 package id.rllyhz.animeus.activity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import id.rllyhz.animeus.R;
+import id.rllyhz.animeus.helper.CustomActionBar;
 
 public class AnimeDetailActivity extends AppCompatActivity {
     public static final String EXTRA_ANIME_DETAIL_TITLE = "id.rllyhz.animeus.EXTRA_ANIME_DETAIL_TITLE";
@@ -19,6 +22,7 @@ public class AnimeDetailActivity extends AppCompatActivity {
     private TextView animeDetailTitle, animeDetailDescription;
     private ImageView animeDetailImage;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,11 +30,8 @@ public class AnimeDetailActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar_layout);
 
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back);
-
-        getWindow().setStatusBarColor(Color.parseColor("#000000"));
+        CustomActionBar.init(this, toolbar, R.drawable.ic_arrow_back,
+                getColor(R.color.backgroundColor), CustomActionBar.STATUS_BAR_LIGHT_THEME);
 
         if (getIntent() != null || getIntent().getExtras() != null) {
             String title = getIntent().getStringExtra(EXTRA_ANIME_DETAIL_TITLE);

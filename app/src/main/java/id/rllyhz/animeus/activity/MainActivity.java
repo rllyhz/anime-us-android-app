@@ -3,6 +3,7 @@ package id.rllyhz.animeus.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.navigation.NavigationView;
 
 import id.rllyhz.animeus.R;
+import id.rllyhz.animeus.helper.CustomActionBar;
 import id.rllyhz.animeus.ui.AnimeFragment;
 import id.rllyhz.animeus.ui.CharacterFragment;
 import id.rllyhz.animeus.ui.MangaFragment;
@@ -111,7 +113,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void setToolbar() {
         toolbar = findViewById(R.id.toolbar_layout);
-        this.setSupportActionBar(toolbar);
+        CustomActionBar.init(this, toolbar, CustomActionBar.DEFAULT_HOME_AS_UP,
+                CustomActionBar.DEFAULT_STATUS_BAR_COLOR, CustomActionBar.STATUS_BAR_LIGHT_THEME);
     }
 
     private void showToast(CharSequence message) {
