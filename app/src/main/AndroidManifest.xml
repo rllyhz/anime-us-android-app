@@ -13,10 +13,9 @@
         android:theme="@style/Theme.AnimeUs">
         <activity
             android:name=".activity.MainActivity"
-            android:theme="@style/Theme.AnimeUs.NoActionBar" />
+            android:theme="@style/Theme.AnimeUs.NoActionBar"/>
         <activity
-            android:name=".SplashScreen"
-            android:theme="@style/Theme.AnimeUs.NoActionBar">
+            android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -14,14 +14,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar_layout"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/purple_200"
-            android:elevation="4dp"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        <include layout="@layout/toolbar" />
 
         <FrameLayout
             android:id="@+id/fragment_container_layout"
@@ -30,7 +23,6 @@
 
     </LinearLayout>
 
-
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
@@ -38,10 +30,5 @@
         android:layout_gravity="start"
         app:headerLayout="@layout/drawer_menu_header_layout"
         app:menu="@menu/drawer_menu" />
-
-
-    <com.google.android.material.navigation.NavigationView
-        android:layout_width="280dp"
-        android:layout_height="match_parent" />
 
 </androidx.drawerlayout.widget.DrawerLayout>
