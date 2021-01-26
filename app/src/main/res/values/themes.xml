@@ -17,5 +17,8 @@
     <style name="Theme.AnimeUs.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+
+        <!-- Only works in API level min 21 -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 </resources>
