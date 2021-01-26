@@ -15,7 +15,8 @@
             android:name=".activity.MainActivity"
             android:theme="@style/Theme.AnimeUs.NoActionBar"/>
         <activity
-            android:name=".SplashScreen">
+            android:name=".SplashScreen"
+            android:theme="@style/Theme.AnimeUs.Splashscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -11,7 +11,9 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+
         <!-- Customize your theme here. -->
+
     </style>
 
     <style name="Theme.AnimeUs.NoActionBar">
@@ -20,5 +22,9 @@
 
         <!-- Only works in API level min 21 -->
         <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+    <style name="Theme.AnimeUs.Splashscreen">
+        <item name="android:statusBarColor" tools:targetApi="l">@color/primaryColor</item>
     </style>
 </resources>

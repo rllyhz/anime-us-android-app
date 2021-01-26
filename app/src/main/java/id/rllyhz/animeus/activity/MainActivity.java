@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         initNavigationView();
         initDrawerMenu();
 
+        // is the first time
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_layout,
                     new AnimeFragment()).commit();
