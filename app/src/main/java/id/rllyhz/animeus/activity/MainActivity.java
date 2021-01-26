@@ -1,5 +1,6 @@
 package id.rllyhz.animeus.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -20,6 +21,8 @@ import id.rllyhz.animeus.ui.CharacterFragment;
 import id.rllyhz.animeus.ui.MangaFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    public static final int REQUEST_CODE_ANIME_DETAIL = 1212;
+
     private Toolbar toolbar;
     private DrawerLayout drawer;
     private NavigationView navigationView;
@@ -81,6 +84,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE_ANIME_DETAIL && resultCode == RESULT_OK) {
+            //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_layout,
+             //       new AnimeFragment()).commit();
+        }
     }
 
     private void initNavigationView() {

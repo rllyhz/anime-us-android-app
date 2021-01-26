@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AnimeUs">
-        <activity android:name=".activity.AnimeDetailActivity"></activity>
+        <activity android:name=".activity.AnimeDetailActivity"
+            android:theme="@style/Theme.AnimeUs.NoActionBar"></activity>
         <activity
             android:name=".activity.MainActivity"
             android:theme="@style/Theme.AnimeUs.NoActionBar" />

@@ -1,42 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundColor"
-    android:padding="16dp"
-    tools:context=".activity.AnimeDetailActivity">
+    android:orientation="vertical"
+    tools:context=".activity.AnimeDetailActivity"
+    android:fitsSystemWindows="true">
 
-    <ImageView
-        android:id="@+id/anime_detail_image"
-        android:layout_width="340dp"
-        android:layout_height="340dp"
-        android:layout_centerHorizontal="true"
-        android:src="@mipmap/ic_launcher_round" />
+    <include layout="@layout/main_toolbar" />
 
-    <TextView
-        android:id="@+id/anime_detail_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/anime_detail_image"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
-        android:textColor="@color/primaryColor"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        tools:text="Anime Detail Title" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
 
-    <TextView
-        android:id="@+id/anime_detail_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/anime_detail_title"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="12dp"
-        android:maxWidth="340dp"
-        android:textColor="@color/primaryColorLight"
-        android:textSize="16sp"
-        tools:text="Anime Detail Description sdfsfdfffdfsfsdffsfffsdfsdsdffsdffsdsdfsfsfsfsdfs" />
+        <ImageView
+            android:id="@+id/anime_detail_image"
+            android:layout_width="260dp"
+            android:layout_height="260dp"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/ic_launcher_round" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/anime_detail_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/anime_detail_image"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="32dp"
+            android:textColor="@color/primaryColor"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="Anime Detail Title" />
+
+        <TextView
+            android:id="@+id/anime_detail_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/anime_detail_title"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="12dp"
+            android:maxWidth="340dp"
+            android:textColor="@color/primaryColorLight"
+            android:textSize="16sp"
+            tools:text="Anime Detail Description sdfsfdfffdfsfsdffsfffsdfsdsdffsdffsdsdfsfsfsfsdfs" />
+
+    </RelativeLayout>
+
+</LinearLayout>

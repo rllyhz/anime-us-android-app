@@ -35,6 +35,13 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHol
         this.onItemLongClickListener = listener;
     }
 
+    public ArrayList<String> getAnimeAt(int position) {
+        if (animeList != null)
+            return animeList.get(position);
+
+        return null;
+    }
+
     @NonNull
     @Override
     public AnimeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
