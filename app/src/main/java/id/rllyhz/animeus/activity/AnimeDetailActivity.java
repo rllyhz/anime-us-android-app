@@ -45,8 +45,7 @@ public class AnimeDetailActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                setResult(RESULT_OK);
-                finish();
+                goBack();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -65,7 +64,14 @@ public class AnimeDetailActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        goBack();
+    }
+
+    private void goBack() {
         setResult(RESULT_OK);
+
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+
         finish();
     }
 }

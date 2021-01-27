@@ -84,6 +84,8 @@ public class AnimeFragment extends Fragment {
         animeDetailActivity.putExtra(AnimeDetailActivity.EXTRA_ANIME_DETAIL_TITLE, title);
         animeDetailActivity.putExtra(AnimeDetailActivity.EXTRA_ANIME_DETAIL_DESCRIPTION, description);
 
+        getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
         getActivity().startActivityForResult(animeDetailActivity, MainActivity.REQUEST_CODE_ANIME_DETAIL);
     }
 }
