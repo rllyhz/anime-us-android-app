@@ -2,9 +2,9 @@ package id.rllyhz.animeus.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,6 +18,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import id.rllyhz.animeus.R;
 import id.rllyhz.animeus.helper.CustomActionBar;
+import id.rllyhz.animeus.helper.CustomToast;
 import id.rllyhz.animeus.ui.AnimeFragment;
 import id.rllyhz.animeus.ui.CharacterFragment;
 import id.rllyhz.animeus.ui.MangaFragment;
@@ -98,6 +99,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_toolbar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.main_toolbar_item_search:
+                showToast("Search");
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private void initNavigationView() {
         navigationView = findViewById(R.id.navigation_layout);
         navigationView.setNavigationItemSelectedListener(this);
@@ -117,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 CustomActionBar.DEFAULT_STATUS_BAR_COLOR, CustomActionBar.STATUS_BAR_LIGHT_THEME);
     }
 
-    private void showToast(CharSequence message) {
-        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+    private void showToast(String message) {
+        CustomToast.shortToast(getApplicationContext(), message);
     }
 }
