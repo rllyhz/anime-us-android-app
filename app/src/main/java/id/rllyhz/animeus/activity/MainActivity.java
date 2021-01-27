@@ -3,13 +3,14 @@ package id.rllyhz.animeus.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.inputmethod.EditorInfo;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -29,23 +30,39 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Toolbar toolbar;
     private DrawerLayout drawer;
     private NavigationView navigationView;
+    private SearchView searchView;
+
+    private AnimeFragment animeFragment;
+    private MangaFragment mangaFragment;
+    private CharacterFragment characterFragment;
+
+    private static final int TIME_INTERVAL = 2000;
+    private long backPressed;
+
+    private CustomToast toast;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        toast = new CustomToast(this, R.layout.custom_toast);
+
         setToolbar();
         initNavigationView();
         initDrawerMenu();
+        initFragments();
 
         // is the first time
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_layout,
-                    new AnimeFragment()).commit();
+                    animeFragment).commit();
 
             navigationView.setCheckedItem(R.id.drawer_menu_anime);
         }
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         // SEARCH endpoint hasn't been implemented yet!
 
@@ -55,15 +72,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onBackPressed() {
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
+        if (!searchView.isIconified()) {
+            searchView.setIconified(true);
+            searchView.onActionViewCollapsed();
+        } else if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        } else if (backPressed + TIME_INTERVAL > System.currentTimeMillis()) {
             super.onBackPressed();
+        } else {
+            showToast("Click two times close the app");
         }
+
+        backPressed = System.currentTimeMillis();
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        if (!searchView.isIconified()) {
+            searchView.setIconified(true);
+            searchView.onActionViewCollapsed();
+        }
+
         switch (item.getItemId()) {
             case R.id.drawer_menu_anime:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_layout,
@@ -95,13 +124,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (requestCode == REQUEST_CODE_ANIME_DETAIL && resultCode == RESULT_OK) {
             //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_layout,
-             //       new AnimeFragment()).commit();
+            //       new AnimeFragment()).commit();
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_toolbar_menu, menu);
+
+        searchView = (SearchView) menu.getItem(0).getActionView();
+        initSearchView();
+
         return true;
     }
 
@@ -113,6 +146,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void initFragments() {
+        animeFragment = new AnimeFragment();
+        animeFragment.setSearchableRecyclerviewListener((adapter, textPattern) -> adapter.getFilter().filter(textPattern));
+
+        mangaFragment = new MangaFragment();
+        characterFragment = new CharacterFragment();
+    }
+
+    private void initSearchView() {
+        // searchView.setBackground(getDrawable(R.drawable.toolbar_search_view_bg));
+        searchView.setQueryHint("Search ...");
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                showToast("Searching data ...");
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //
+                return false;
+            }
+        });
     }
 
     private void initNavigationView() {
@@ -135,6 +196,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void showToast(String message) {
-        CustomToast.shortToast(getApplicationContext(), message);
+        toast.show(null, message);
     }
 }

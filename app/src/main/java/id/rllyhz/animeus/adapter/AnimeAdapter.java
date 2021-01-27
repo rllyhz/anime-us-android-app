@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,16 +17,18 @@ import java.util.List;
 
 import id.rllyhz.animeus.R;
 
-public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHolder> {
+public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHolder> implements Filterable {
     private OnItemClickListener onItemClickListener;
     private OnItemLongClickListener onItemLongClickListener;
 
     private Context context;
-    private List<ArrayList<String>> animeList;
+    private List<ArrayList<String>> animeListFull;
+    private List<ArrayList<String>> filteredAnimeList = new ArrayList<>();
 
     public AnimeAdapter(Context context, List<ArrayList<String>> animeList) {
         this.context = context;
-        this.animeList = animeList;
+        this.animeListFull = animeList;
+        this.filteredAnimeList.addAll(animeList);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
@@ -36,8 +40,8 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHol
     }
 
     public ArrayList<String> getAnimeAt(int position) {
-        if (animeList != null)
-            return animeList.get(position);
+        if (filteredAnimeList != null)
+            return filteredAnimeList.get(position);
 
         return null;
     }
@@ -52,8 +56,8 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHol
     @Override
     public void onBindViewHolder(@NonNull AnimeViewHolder holder, int position) {
         holder.animeImage.setBackground(context.getDrawable(R.drawable.ic_launcher_foreground));
-        holder.animeTitle.setText(animeList.get(position).get(0));
-        holder.animeDescription.setText(animeList.get(position).get(1));
+        holder.animeTitle.setText(filteredAnimeList.get(position).get(0));
+        holder.animeDescription.setText(filteredAnimeList.get(position).get(1));
 
         // set onClick listener
         holder.itemView.setOnClickListener(v -> {
@@ -72,7 +76,7 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHol
 
     @Override
     public int getItemCount() {
-        return animeList == null ? 0 : animeList.size();
+        return animeListFull == null ? 0 : animeListFull.size();
     }
 
     public class AnimeViewHolder extends RecyclerView.ViewHolder {
@@ -89,6 +93,43 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHol
         }
     }
 
+    @Override
+    public Filter getFilter() {
+        return animeFilter;
+    }
+
+    private Filter animeFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<ArrayList<String>> filteredList = new ArrayList<>();
+            filteredList.clear();
+
+            if (constraint == null || constraint.length() == 0) {
+                filteredList.addAll(animeListFull);
+            } else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+
+                for (ArrayList<String> animeDetail : animeListFull) {
+                    if (animeDetail.get(0).toLowerCase().trim().contains(filterPattern)) {
+                        filteredList.add(animeDetail);
+                    }
+                }
+            }
+
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            filteredAnimeList.clear();
+            filteredAnimeList.addAll((List) results.values);
+            notifyDataSetChanged();
+        }
+    };
+
     public interface OnItemClickListener {
         void onClick(View view, int position);
     }
@@ -96,4 +137,5 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHol
     public interface OnItemLongClickListener {
         boolean onLongClick(View view, int position);
     }
+
 }

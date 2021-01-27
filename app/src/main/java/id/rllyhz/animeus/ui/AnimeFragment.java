@@ -24,6 +24,9 @@ import id.rllyhz.animeus.activity.MainActivity;
 import id.rllyhz.animeus.adapter.AnimeAdapter;
 
 public class AnimeFragment extends Fragment {
+    private SearchableRecyclerviewListener searchableRecyclerviewListener;
+    private AnimeAdapter adapter;
+
     private RelativeLayout animeTopContainer;
     private RecyclerView recyclerViewAnime;
     private TextView animeTopTitle, animeTopDescription;
@@ -50,26 +53,54 @@ public class AnimeFragment extends Fragment {
         setRecyclerView();
     }
 
+    public void setSearchableRecyclerviewListener(SearchableRecyclerviewListener listener) {
+        this.searchableRecyclerviewListener = listener;
+    }
+
+    public void filterAnimeAdapter(String textPattern) {
+        if (searchableRecyclerviewListener != null && adapter != null)
+            searchableRecyclerviewListener.onSearch(adapter, textPattern);
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_anime, container, false);
     }
 
+    private List<ArrayList<String>> getData() {
+        List<ArrayList<String>> animeList = new ArrayList<>();
+
+        ArrayList<String> animeDetail1 = new ArrayList<>();
+        animeDetail1.add("Naruto");
+        animeDetail1.add("Naruto Shippuden The movie");
+        animeList.add(animeDetail1);
+
+        ArrayList<String> animeDetail2 = new ArrayList<>();
+        animeDetail2.add("Kimono Ki ta");
+        animeDetail2.add("Adjkfksjdb sdlgd sdfv nsjdb");
+        animeList.add(animeDetail2);
+
+        ArrayList<String> animeDetail3 = new ArrayList<>();
+        animeDetail3.add("Naruto Shippuden The movie");
+        animeDetail3.add("lsdlsmckld aasdDD dDJKsddnkn Lkdn");
+        animeList.add(animeDetail3);
+
+        ArrayList<String> animeDetail4 = new ArrayList<>();
+        animeDetail4.add("Cinta sama dia");
+        animeDetail4.add("Adjkfksjdb sdlgd sdfv nsjdb");
+        animeList.add(animeDetail4);
+
+        return animeList;
+    }
+
     private void setRecyclerView() {
         recyclerViewAnime = getActivity().findViewById(R.id.recyclerview_anime);
 
-        List<ArrayList<String>> animeList = new ArrayList<>();
+        List<ArrayList<String>> animeList = getData();
 
-        for (int i = 1; i <= 10; i++) {
-            ArrayList<String> animeDetail = new ArrayList<>();
-            animeDetail.add("Anime Title " + i);
-            animeDetail.add("Anime Description " + i);
 
-            animeList.add(animeDetail);
-        }
-
-        AnimeAdapter adapter = new AnimeAdapter(getContext(), animeList);
+        adapter = new AnimeAdapter(getContext(), animeList);
 
         adapter.setOnItemClickListener((view, position) ->
                 gotoAnimeDetailActivity(adapter.getAnimeAt(position).get(0), adapter.getAnimeAt(position).get(1)));
@@ -86,5 +117,9 @@ public class AnimeFragment extends Fragment {
         getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
         getActivity().startActivityForResult(animeDetailActivity, MainActivity.REQUEST_CODE_ANIME_DETAIL);
+    }
+
+    public interface SearchableRecyclerviewListener {
+        void onSearch(AnimeAdapter adapter, String textPattern);
     }
 }

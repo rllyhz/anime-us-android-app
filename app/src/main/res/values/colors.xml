@@ -10,5 +10,6 @@
 
     <color name="backgroundColor">#DBF6FF</color>
     <color name="primaryColor">#FF5C1DA9</color>
+    <color name="primaryColorDark">#FF290D4C</color>
     <color name="primaryColorLight">#FFC5B1E6</color>
 </resources>
