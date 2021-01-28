@@ -17,10 +17,18 @@
 
         <include layout="@layout/main_toolbar" />
 
-        <FrameLayout
-            android:id="@+id/fragment_container_layout"
+        <ScrollView
+            android:scrollY="0dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:scrollbars="vertical">
+
+            <FrameLayout
+                android:id="@+id/fragment_container_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </ScrollView>
 
     </LinearLayout>
 

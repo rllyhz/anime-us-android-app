@@ -99,14 +99,14 @@ public class AnimeFragment extends Fragment {
 
         List<ArrayList<String>> animeList = getData();
 
-
         adapter = new AnimeAdapter(getContext(), animeList);
 
         adapter.setOnItemClickListener((view, position) ->
                 gotoAnimeDetailActivity(adapter.getAnimeAt(position).get(0), adapter.getAnimeAt(position).get(1)));
 
-        recyclerViewAnime.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerViewAnime.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         recyclerViewAnime.setAdapter(adapter);
+        recyclerViewAnime.setFocusable(false);
     }
 
     private void gotoAnimeDetailActivity(String title, String description) {
@@ -117,6 +117,13 @@ public class AnimeFragment extends Fragment {
         getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
         getActivity().startActivityForResult(animeDetailActivity, MainActivity.REQUEST_CODE_ANIME_DETAIL);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        setSearchableRecyclerviewListener(null);
     }
 
     public interface SearchableRecyclerviewListener {

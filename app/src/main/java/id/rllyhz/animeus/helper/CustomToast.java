@@ -49,6 +49,8 @@ public class CustomToast {
     public void show(Drawable icon, String message) {
         if (icon != null) {
             iconView.setBackground(icon);
+        } else {
+            iconView.setVisibility(View.INVISIBLE);
         }
 
         messageView.setText(message);

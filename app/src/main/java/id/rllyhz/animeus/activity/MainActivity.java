@@ -14,15 +14,19 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.material.navigation.NavigationView;
 
 import id.rllyhz.animeus.R;
+import id.rllyhz.animeus.api.ApiClient;
+import id.rllyhz.animeus.api.data_service.AnimeAPIService;
 import id.rllyhz.animeus.helper.CustomActionBar;
 import id.rllyhz.animeus.helper.CustomToast;
 import id.rllyhz.animeus.ui.AnimeFragment;
 import id.rllyhz.animeus.ui.CharacterFragment;
 import id.rllyhz.animeus.ui.MangaFragment;
+import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     public static final int REQUEST_CODE_ANIME_DETAIL = 1212;
@@ -55,9 +59,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // is the first time
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_layout,
-                    animeFragment).commit();
-
+            replaceFragment(animeFragment);
             navigationView.setCheckedItem(R.id.drawer_menu_anime);
         }
 
@@ -68,6 +70,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // type: (anime, manga, character, person)
         // https://api.jikan.moe/v3/search/type?q=Fate/Zero&page=1
+
+        Retrofit animeApiService = ApiClient.getAnimeApiServiceInstance();
     }
 
     @Override
@@ -95,17 +99,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch (item.getItemId()) {
             case R.id.drawer_menu_anime:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_layout,
-                        new AnimeFragment()).commit();
+                replaceFragment(animeFragment);
                 break;
             case R.id.drawer_menu_manga:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_layout,
-                        new MangaFragment()).commit();
+                replaceFragment(mangaFragment);
                 break;
             case R.id.drawer_menu_character:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_layout,
-                        new CharacterFragment()).commit();
+                replaceFragment(characterFragment);
                 break;
+
             case R.id.drawer_menu_share:
                 showToast("Share");
                 break;
@@ -146,6 +148,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void replaceFragment(Fragment fragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container_layout, fragment)
+                .commit();
     }
 
     private void initFragments() {
@@ -197,5 +206,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void showToast(String message) {
         toast.show(null, message);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        animeFragment = null;
+        mangaFragment = null;
+        characterFragment = null;
     }
 }
