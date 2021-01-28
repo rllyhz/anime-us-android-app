@@ -11,52 +11,306 @@
 
     <include layout="@layout/main_toolbar" />
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp">
+        android:layout_height="wrap_content">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/anime_detail_image_container"
-            android:layout_width="280dp"
-            android:layout_height="280dp"
-            android:layout_centerHorizontal="true"
-            app:cardBackgroundColor="@color/backgroundColor"
-            app:cardElevation="0dp"
-            app:cardCornerRadius="4dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp">
 
-            <ImageView
-                android:id="@+id/anime_detail_image"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/anime_detail_image_container"
                 android:layout_width="280dp"
                 android:layout_height="280dp"
-                android:src="@mipmap/ic_launcher_round" />
+                android:layout_centerHorizontal="true"
+                android:visibility="gone"
+                app:cardBackgroundColor="@color/backgroundColor"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="0dp"
+                tools:visibility="visible">
 
-        </androidx.cardview.widget.CardView>
+                <ImageView
+                    android:id="@+id/anime_detail_image"
+                    android:layout_width="280dp"
+                    android:layout_height="280dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:src="@mipmap/ic_launcher_round" />
 
-        <TextView
-            android:id="@+id/anime_detail_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/anime_detail_image_container"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="32dp"
-            android:textColor="@color/primaryColor"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            tools:text="Anime Detail Title" />
+            </androidx.cardview.widget.CardView>
 
-        <TextView
-            android:id="@+id/anime_detail_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/anime_detail_title"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="12dp"
-            android:maxWidth="340dp"
-            android:textColor="@color/primaryColorLight"
-            android:textSize="16sp"
-            tools:text="Anime Detail Description sdfsfdfffdfsfsdffsfffsdfsdsdffsdffsdsdfsfsfsfsdfs" />
+            <TextView
+                android:id="@+id/anime_detail_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/anime_detail_image_container"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/primaryColorLight"
+                android:textSize="16sp"
+                android:visibility="gone"
+                tools:text="Movie"
+                tools:visibility="visible" />
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/anime_detail_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/anime_detail_type"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:textColor="@color/primaryColor"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                tools:text="Anime Detail Title"
+                tools:visibility="visible" />
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/anime_detail_table_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/anime_detail_title"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="18dp"
+                android:visibility="gone"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                tools:visibility="visible">
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp">
+
+                        <TextView
+                            style="@style/TableRowText1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_marginRight="12dp"
+                            android:text="Rank" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="8dp"
+                            android:text=":" />
+
+                        <TextView
+                            android:id="@+id/anime_detail_rank"
+                            style="@style/TableRowText2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="2"
+                            tools:text="#1" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp">
+
+                        <TextView
+                            style="@style/TableRowText1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_marginRight="12dp"
+                            android:text="Total Episodes" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="8dp"
+                            android:text=":" />
+
+                        <TextView
+                            android:id="@+id/anime_detail_total_episodes"
+                            style="@style/TableRowText2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="2"
+                            tools:text="12" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp">
+
+                        <TextView
+                            style="@style/TableRowText1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_marginRight="12dp"
+                            android:text="Duration" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="8dp"
+                            android:text=":" />
+
+                        <TextView
+                            android:id="@+id/anime_detail_duration"
+                            style="@style/TableRowText2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="2"
+                            tools:text="142 mins" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp">
+
+                        <TextView
+                            style="@style/TableRowText1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_marginRight="12dp"
+                            android:text="Genres" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="8dp"
+                            android:text=":" />
+
+                        <TextView
+                            android:id="@+id/anime_detail_genres"
+                            style="@style/TableRowText2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="2"
+                            android:ellipsize="none"
+                            tools:text="Comedy, Echi" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp">
+
+                        <TextView
+                            style="@style/TableRowText1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_marginRight="12dp"
+                            android:text="Rating" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="8dp"
+                            android:text=":" />
+
+                        <TextView
+                            android:id="@+id/anime_detail_rating"
+                            style="@style/TableRowText2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="2"
+                            tools:text="3" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp">
+
+                        <TextView
+                            style="@style/TableRowText1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_marginRight="12dp"
+                            android:text="Aired Time" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="8dp"
+                            android:text=":" />
+
+                        <TextView
+                            android:id="@+id/anime_detail_aired_time"
+                            style="@style/TableRowText2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="2"
+                            tools:text="12 Jan 2020" />
+
+                    </TableRow>
+
+                </TableLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/anime_detail_sysnopsis_heading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/anime_detail_table_container"
+                android:layout_marginTop="28dp"
+                android:gravity="center"
+                android:text="Synopsis"
+                android:textColor="@color/primaryColor"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/anime_detail_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/anime_detail_sysnopsis_heading"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                android:maxWidth="340dp"
+                android:textAlignment="textStart"
+                android:textColor="@color/primaryColorLight"
+                android:textSize="18sp"
+                android:visibility="gone"
+                tools:text="Anime Detail Description"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/footer_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/anime_detail_description"
+                android:layout_marginTop="60dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:text="© Rully Ihza Mahendra"
+                android:textColor="@color/primaryColorLight"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+        </RelativeLayout>
+
+    </ScrollView>
 
 </LinearLayout>

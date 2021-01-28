@@ -1,6 +1,7 @@
 package id.rllyhz.animeus.ui;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -92,9 +93,23 @@ public class AnimeFragment extends Fragment {
             @Override
             public void onFailure(Call<GetTopAnimeResponseType> call, Throwable t) {
                 showToast("Failed load data!");
+                setFailedUI();
                 closeDialog();
+                footerText.setVisibility(View.VISIBLE);
             }
         });
+    }
+
+    private void setFailedUI() {
+        animeTopImage.setBackground(getActivity().getDrawable(R.mipmap.ic_launcher_round));
+        animeTopTitle.setText("Failed to load data");
+        animeTopDescription.setText("Please check your connection!");
+
+        showDialog("Failed to load data", "Please check your connection!", true);
+
+        animeTopHeading.setVisibility(View.VISIBLE);
+        animeTopContainer.setVisibility(View.VISIBLE);
+        animeListHeading.setVisibility(View.VISIBLE);
     }
 
     private void setUI() {
@@ -149,9 +164,6 @@ public class AnimeFragment extends Fragment {
     private void gotoAnimeDetailActivity(Anime topAnime) {
         Intent animeDetailActivity = new Intent(getActivity(), AnimeDetailActivity.class);
         animeDetailActivity.putExtra(AnimeDetailActivity.EXTRA_ANIME_DETAIL_ID, topAnime.getId());
-        animeDetailActivity.putExtra(AnimeDetailActivity.EXTRA_ANIME_DETAIL_TITLE, topAnime.getTitle());
-        animeDetailActivity.putExtra(AnimeDetailActivity.EXTRA_ANIME_DETAIL_DESCRIPTION, "Total Episodes :  " + topAnime.getEpisodes());
-        animeDetailActivity.putExtra(AnimeDetailActivity.EXTRA_ANIME_DETAIL_IMAGE_URL, topAnime.getImageUrl());
 
         getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
@@ -168,6 +180,18 @@ public class AnimeFragment extends Fragment {
     private void showDialog(String message, boolean isCancelable) {
         progressDialog.setMessage(message);
         progressDialog.setCancelable(isCancelable);
+
+        if (!progressDialog.isShowing())
+            progressDialog.show();
+    }
+
+    private void showDialog(String title, String message, boolean isCancelable) {
+        progressDialog.setTitle(title);
+        progressDialog.setMessage(message);
+        progressDialog.setCancelable(isCancelable);
+
+        progressDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Oke",
+                (dialog, which) -> progressDialog.dismiss());
 
         if (!progressDialog.isShowing())
             progressDialog.show();

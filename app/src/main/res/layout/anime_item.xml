@@ -4,7 +4,9 @@
     android:layout_width="280dp"
     android:layout_height="280dp"
     android:layout_marginRight="8dp"
+    android:clickable="true"
     android:elevation="4dp"
+    android:focusable="true"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     app:cardBackgroundColor="@color/primaryColor"
@@ -20,15 +22,16 @@
             android:id="@+id/anime_detail_image_container"
             android:layout_width="180dp"
             android:layout_height="180dp"
-            app:cardElevation="0dp"
-            app:cardCornerRadius="4dp"
             android:layout_centerHorizontal="true"
-            app:cardBackgroundColor="@color/primaryColor">
+            app:cardBackgroundColor="@color/primaryColor"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="0dp">
 
             <ImageView
                 android:id="@+id/anime_item_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="?android:attr/selectableItemBackground"
                 android:src="@mipmap/ic_launcher_round" />
 
         </androidx.cardview.widget.CardView>

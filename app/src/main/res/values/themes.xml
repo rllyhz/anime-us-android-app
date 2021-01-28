@@ -27,4 +27,15 @@
     <style name="Theme.AnimeUs.Splashscreen">
         <item name="android:statusBarColor" tools:targetApi="l">@color/primaryColor</item>
     </style>
+
+    <style name="TableRowText1">
+        <item name="android:textColor">@color/primaryColor</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TableRowText2">
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:textSize">13dp</item>
+    </style>
 </resources>

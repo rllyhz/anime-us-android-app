@@ -10,16 +10,18 @@
     tools:context=".activity.MainActivity"
     tools:openDrawer="start">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <include layout="@layout/main_toolbar" />
+
+        <ScrollView
+            android:id="@+id/container_scrollview_top_anime_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <include layout="@layout/main_toolbar" />
+            android:scrollbars="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -33,9 +35,9 @@
 
             </LinearLayout>
 
-        </LinearLayout>
+        </ScrollView>
 
-    </ScrollView>
+    </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigation_layout"
