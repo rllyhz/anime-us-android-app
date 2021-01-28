@@ -148,6 +148,7 @@ public class AnimeFragment extends Fragment {
 
     private void gotoAnimeDetailActivity(Anime topAnime) {
         Intent animeDetailActivity = new Intent(getActivity(), AnimeDetailActivity.class);
+        animeDetailActivity.putExtra(AnimeDetailActivity.EXTRA_ANIME_DETAIL_ID, topAnime.getId());
         animeDetailActivity.putExtra(AnimeDetailActivity.EXTRA_ANIME_DETAIL_TITLE, topAnime.getTitle());
         animeDetailActivity.putExtra(AnimeDetailActivity.EXTRA_ANIME_DETAIL_DESCRIPTION, "Total Episodes :  " + topAnime.getEpisodes());
         animeDetailActivity.putExtra(AnimeDetailActivity.EXTRA_ANIME_DETAIL_IMAGE_URL, topAnime.getImageUrl());

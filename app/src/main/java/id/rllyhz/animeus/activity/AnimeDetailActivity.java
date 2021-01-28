@@ -18,6 +18,7 @@ import id.rllyhz.animeus.R;
 import id.rllyhz.animeus.helper.CustomActionBar;
 
 public class AnimeDetailActivity extends AppCompatActivity {
+    public static final String EXTRA_ANIME_DETAIL_ID = "id.rllyhz.animeus.EXTRA_ANIME_DETAIL_ID";
     public static final String EXTRA_ANIME_DETAIL_TITLE = "id.rllyhz.animeus.EXTRA_ANIME_DETAIL_TITLE";
     public static final String EXTRA_ANIME_DETAIL_DESCRIPTION = "id.rllyhz.animeus.EXTRA_ANIME_DETAIL_DESCRIPTION";
     public static final String EXTRA_ANIME_DETAIL_IMAGE_URL = "id.rllyhz.animeus.EXTRA_ANIME_DETAIL_IMAGE_URL";
@@ -44,6 +45,7 @@ public class AnimeDetailActivity extends AppCompatActivity {
                 getColor(R.color.backgroundColor), CustomActionBar.STATUS_BAR_LIGHT_THEME);
 
         if (getIntent() != null || getIntent().getExtras() != null) {
+            int id = getIntent().getIntExtra(EXTRA_ANIME_DETAIL_ID, -1);
             String title = getIntent().getStringExtra(EXTRA_ANIME_DETAIL_TITLE);
             String description = getIntent().getStringExtra(EXTRA_ANIME_DETAIL_DESCRIPTION);
             String imageUrl = getIntent().getStringExtra(EXTRA_ANIME_DETAIL_IMAGE_URL);
