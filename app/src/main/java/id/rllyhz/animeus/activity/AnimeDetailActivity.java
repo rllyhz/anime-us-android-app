@@ -5,6 +5,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.ProgressDialog;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -26,11 +27,16 @@ public class AnimeDetailActivity extends AppCompatActivity {
     private TextView animeDetailTitle, animeDetailDescription;
     private ImageView animeDetailImage;
 
+    private ProgressDialog progressDialog;
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anime_detail);
+
+        progressDialog = new ProgressDialog(this);
+        showDialog("Loading....", false);
 
         Toolbar toolbar = findViewById(R.id.toolbar_layout);
 
@@ -46,6 +52,8 @@ public class AnimeDetailActivity extends AppCompatActivity {
 
             initAnimeDetailViews(title, description, imageUrl);
         }
+
+        closeDialog();
     }
 
     @Override
@@ -85,5 +93,18 @@ public class AnimeDetailActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
 
         finish();
+    }
+
+    private void showDialog(String message, boolean isCancelable) {
+        progressDialog.setMessage(message);
+        progressDialog.setCancelable(isCancelable);
+
+        if (!progressDialog.isShowing())
+            progressDialog.show();
+    }
+
+    private void closeDialog() {
+        if (progressDialog.isShowing())
+            progressDialog.dismiss();
     }
 }

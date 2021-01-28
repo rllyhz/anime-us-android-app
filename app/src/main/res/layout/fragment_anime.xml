@@ -26,24 +26,40 @@
         android:layout_marginHorizontal="8dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/card_anime_bg"
-        android:padding="12dp"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="16dp"
         android:visibility="gone"
         tools:visibility="visible">
 
         <ImageView
             android:id="@+id/anime_top_image"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:layout_alignParentStart="true"
-            android:background="@mipmap/ic_launcher_round" />
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="12dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            tools:background="@mipmap/ic_launcher_round" />
+
+        <TextView
+            android:id="@+id/anime_top_rank_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/anime_top_image"
+            android:layout_marginTop="8dp"
+            android:layout_centerHorizontal="true"
+            android:drawableLeft="@drawable/ic_star"
+            android:drawablePadding="6dp"
+            android:gravity="center_vertical"
+            android:text="Top rank"
+            android:textColor="#C5B1E6"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/anime_top_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@id/anime_top_image"
-            android:layout_marginLeft="12dp"
-            android:layout_toRightOf="@id/anime_top_image"
+            android:layout_marginTop="16dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/anime_top_rank_status"
             android:text="Top Anime"
             android:textColor="@color/white"
             android:textSize="18sp" />
@@ -54,22 +70,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/anime_top_title"
             android:layout_marginLeft="12dp"
-            android:layout_toRightOf="@id/anime_top_image"
+            android:layout_centerHorizontal="true"
             android:text="Anime Top Description"
-            android:textColor="#C5B1E6"
-            android:textSize="16sp" />
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/anime_top_description"
-            android:layout_alignLeft="@id/anime_top_description"
-            android:layout_marginTop="8dp"
-            android:drawableLeft="@drawable/ic_star"
-            android:drawablePadding="6dp"
-            android:gravity="center_vertical"
-            android:text="Top rank"
             android:textColor="#C5B1E6"
             android:textSize="16sp" />
 

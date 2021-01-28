@@ -1,5 +1,6 @@
 package id.rllyhz.animeus.activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private long backPressed;
 
     private CustomToast toast;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,8 +51,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
 
         toast = new CustomToast(this, R.layout.custom_toast);
-        ScrollView scrollView = findViewById(R.id.container_scrollview_top_anime_list);
-        scrollView.setFocusable(false);
+        progressDialog = new ProgressDialog(this);
 
         setToolbar();
         initNavigationView();
@@ -171,7 +172,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                showToast("Searching data ...");
+                showToast("Searching data for `" + query + "` ...");
                 return false;
             }
 
@@ -204,6 +205,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void showToast(String message) {
         toast.show(null, message);
+    }
+
+    private void showDialog(String message, boolean isCancelable) {
+        progressDialog.setMessage(message);
+        progressDialog.setCancelable(isCancelable);
+
+        if (!progressDialog.isShowing())
+            progressDialog.show();
+    }
+
+    private void closeDialog() {
+        if (progressDialog.isShowing())
+            progressDialog.dismiss();
     }
 
     @Override

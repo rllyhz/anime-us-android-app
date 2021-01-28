@@ -96,6 +96,7 @@ public class AnimeFragment extends Fragment {
     private void setUI() {
         if (!listFailedTobeDownloaded) {
             Picasso.get().load(topAnime.getImageUrl())
+                    .placeholder(R.mipmap.ic_launcher_round)
                     .into(animeTopImage);
 
             animeTopTitle.setText(topAnime.getTitle());
