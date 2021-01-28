@@ -47,6 +47,7 @@ public class AnimeFragment extends Fragment {
 
     private boolean listFailedTobeDownloaded = false;
     private List<Anime> topAnimeList;
+    private Anime topAnime;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,6 +79,7 @@ public class AnimeFragment extends Fragment {
             public void onResponse(Call<GetTopAnimeResponseType> call, Response<GetTopAnimeResponseType> response) {
                 if (response.isSuccessful() && response.code() == 200 && response.body() != null) {
                     topAnimeList = response.body().getAnimeList();
+                    topAnime = topAnimeList.get(0);
                     setUI();
                     closeDialog();
                 }
@@ -93,13 +95,13 @@ public class AnimeFragment extends Fragment {
 
     private void setUI() {
         if (!listFailedTobeDownloaded) {
-            Picasso.get().load(topAnimeList.get(0).getImageUrl())
+            Picasso.get().load(topAnime.getImageUrl())
                     .into(animeTopImage);
 
-            animeTopTitle.setText(topAnimeList.get(0).getTitle());
-            animeTopDescription.setText("Total Episodes :  " + topAnimeList.get(0).getEpisodes());
+            animeTopTitle.setText(topAnime.getTitle());
+            animeTopDescription.setText("Total Episodes :  " + topAnime.getEpisodes());
 
-            animeTopContainer.setOnClickListener(v -> gotoAnimeDetailActivity(topAnimeList.get(0)));
+            animeTopContainer.setOnClickListener(v -> gotoAnimeDetailActivity(topAnime));
         } else {
             animeTopImage.setImageDrawable(getActivity().getDrawable(R.mipmap.ic_launcher_round));
             animeTopTitle.setText(".......");
@@ -143,6 +145,7 @@ public class AnimeFragment extends Fragment {
         Intent animeDetailActivity = new Intent(getActivity(), AnimeDetailActivity.class);
         animeDetailActivity.putExtra(AnimeDetailActivity.EXTRA_ANIME_DETAIL_TITLE, topAnime.getTitle());
         animeDetailActivity.putExtra(AnimeDetailActivity.EXTRA_ANIME_DETAIL_DESCRIPTION, "Total Episodes :  " + topAnime.getEpisodes());
+        animeDetailActivity.putExtra(AnimeDetailActivity.EXTRA_ANIME_DETAIL_IMAGE_URL, topAnime.getImageUrl());
 
         getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 

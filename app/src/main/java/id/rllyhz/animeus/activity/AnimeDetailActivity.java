@@ -11,12 +11,17 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import id.rllyhz.animeus.R;
 import id.rllyhz.animeus.helper.CustomActionBar;
 
 public class AnimeDetailActivity extends AppCompatActivity {
     public static final String EXTRA_ANIME_DETAIL_TITLE = "id.rllyhz.animeus.EXTRA_ANIME_DETAIL_TITLE";
     public static final String EXTRA_ANIME_DETAIL_DESCRIPTION = "id.rllyhz.animeus.EXTRA_ANIME_DETAIL_DESCRIPTION";
+    public static final String EXTRA_ANIME_DETAIL_IMAGE_URL = "id.rllyhz.animeus.EXTRA_ANIME_DETAIL_IMAGE_URL";
+    public static final String EXTRA_ANIME_DETAIL_TOTAL_RANK = "id.rllyhz.animeus.EXTRA_ANIME_DETAIL_TOTAL_RANK";
+    public static final String EXTRA_ANIME_DETAIL_TOTAL_EPISODES = "id.rllyhz.animeus.EXTRA_ANIME_DETAIL_TOTAL_EPISODES";
 
     private TextView animeDetailTitle, animeDetailDescription;
     private ImageView animeDetailImage;
@@ -35,8 +40,11 @@ public class AnimeDetailActivity extends AppCompatActivity {
         if (getIntent() != null || getIntent().getExtras() != null) {
             String title = getIntent().getStringExtra(EXTRA_ANIME_DETAIL_TITLE);
             String description = getIntent().getStringExtra(EXTRA_ANIME_DETAIL_DESCRIPTION);
+            String imageUrl = getIntent().getStringExtra(EXTRA_ANIME_DETAIL_IMAGE_URL);
+            int totalRank = getIntent().getIntExtra(EXTRA_ANIME_DETAIL_TOTAL_RANK, 0);
+            int totalEpisodes = getIntent().getIntExtra(EXTRA_ANIME_DETAIL_TOTAL_EPISODES, 0);
 
-            initAnimeDetailViews(title, description);
+            initAnimeDetailViews(title, description, imageUrl);
         }
     }
 
@@ -51,12 +59,17 @@ public class AnimeDetailActivity extends AppCompatActivity {
         }
     }
 
-    private void initAnimeDetailViews(String title, String description) {
+    private void initAnimeDetailViews(String title, String description, String imageUrl) {
         animeDetailTitle = findViewById(R.id.anime_detail_title);
         animeDetailDescription = findViewById(R.id.anime_detail_description);
         animeDetailImage = findViewById(R.id.anime_detail_image);
 
-        animeDetailImage.setBackground(getDrawable(R.mipmap.ic_launcher_round));
+        Picasso.get()
+                .load(imageUrl)
+                .placeholder(R.mipmap.ic_launcher_round)
+                .error(R.mipmap.ic_launcher_round)
+                .into(animeDetailImage);
+
         animeDetailTitle.setText(title);
         animeDetailDescription.setText(description);
     }
