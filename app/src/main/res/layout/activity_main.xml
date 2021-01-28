@@ -18,6 +18,7 @@
         <include layout="@layout/main_toolbar" />
 
         <ScrollView
+            android:id="@+id/container_scrollview_top_anime_list"
             android:scrollY="0dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

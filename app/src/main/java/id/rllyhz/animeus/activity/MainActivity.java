@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
+import android.widget.ScrollView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,14 +20,11 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.navigation.NavigationView;
 
 import id.rllyhz.animeus.R;
-import id.rllyhz.animeus.api.ApiClient;
-import id.rllyhz.animeus.api.data_service.AnimeAPIService;
 import id.rllyhz.animeus.helper.CustomActionBar;
 import id.rllyhz.animeus.helper.CustomToast;
 import id.rllyhz.animeus.ui.AnimeFragment;
 import id.rllyhz.animeus.ui.CharacterFragment;
 import id.rllyhz.animeus.ui.MangaFragment;
-import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     public static final int REQUEST_CODE_ANIME_DETAIL = 1212;
@@ -51,6 +49,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
 
         toast = new CustomToast(this, R.layout.custom_toast);
+        ScrollView scrollView = findViewById(R.id.container_scrollview_top_anime_list);
+        scrollView.setFocusable(false);
 
         setToolbar();
         initNavigationView();
@@ -70,8 +70,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // type: (anime, manga, character, person)
         // https://api.jikan.moe/v3/search/type?q=Fate/Zero&page=1
-
-        Retrofit animeApiService = ApiClient.getAnimeApiServiceInstance();
     }
 
     @Override

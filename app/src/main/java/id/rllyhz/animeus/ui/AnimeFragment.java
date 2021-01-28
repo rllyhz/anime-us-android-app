@@ -1,5 +1,6 @@
 package id.rllyhz.animeus.ui;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,42 +16,112 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import id.rllyhz.animeus.R;
 import id.rllyhz.animeus.activity.AnimeDetailActivity;
 import id.rllyhz.animeus.activity.MainActivity;
-import id.rllyhz.animeus.adapter.AnimeAdapter;
+import id.rllyhz.animeus.adapter.TopAnimeAdapter;
+import id.rllyhz.animeus.api.ApiClient;
+import id.rllyhz.animeus.api.data_service.AnimeAPIService;
+import id.rllyhz.animeus.api.response_type.GetTopAnimeResponseType;
+import id.rllyhz.animeus.helper.CustomToast;
+import id.rllyhz.animeus.api.response_type.GetTopAnimeResponseType.Anime;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AnimeFragment extends Fragment {
     private SearchableRecyclerviewListener searchableRecyclerviewListener;
-    private AnimeAdapter adapter;
+    private TopAnimeAdapter adapter;
 
     private RelativeLayout animeTopContainer;
     private RecyclerView recyclerViewAnime;
-    private TextView animeTopTitle, animeTopDescription;
+    private TextView animeTopTitle, animeTopDescription, animeTopHeading, animeListHeading;
     private ImageView animeTopImage;
+
+    private ProgressDialog progressDialog;
+    private CustomToast toast;
+
+    private boolean listFailedTobeDownloaded = false;
+    private List<Anime> topAnimeList;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        toast = new CustomToast(getActivity(), R.layout.custom_toast);
+        progressDialog = new ProgressDialog(getActivity());
+
+        showDialog("Loading...", false);
+    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        animeTopHeading = getActivity().findViewById(R.id.anime_top_heading);
+        animeListHeading = getActivity().findViewById(R.id.anime_list_heading);
         animeTopContainer = getActivity().findViewById(R.id.anime_top_container);
         animeTopTitle = getActivity().findViewById(R.id.anime_top_title);
         animeTopDescription = getActivity().findViewById(R.id.anime_top_description);
         animeTopImage = getActivity().findViewById(R.id.anime_top_image);
+        recyclerViewAnime = getActivity().findViewById(R.id.recyclerview_anime);
 
-        String animeTopTitleText = "Anime Top Title";
-        String animeTopDescriptionText = "Anime Top Description";
-        animeTopImage.setBackground(getActivity().getDrawable(R.mipmap.ic_launcher_round));
-        animeTopTitle.setText(animeTopTitleText);
-        animeTopDescription.setText(animeTopDescriptionText);
+        AnimeAPIService animeAPIService = ApiClient.getAnimeApiServiceInstance().create(AnimeAPIService.class);
+        Call<GetTopAnimeResponseType> call = animeAPIService.getTopAnime();
 
-        animeTopContainer.setOnClickListener(v ->
-                gotoAnimeDetailActivity(animeTopTitleText, animeTopDescriptionText));
+        call.enqueue(new Callback<GetTopAnimeResponseType>() {
+            @Override
+            public void onResponse(Call<GetTopAnimeResponseType> call, Response<GetTopAnimeResponseType> response) {
+                if (response.isSuccessful() && response.code() == 200 && response.body() != null) {
+                    topAnimeList = response.body().getAnimeList();
+                    setUI();
+                    closeDialog();
+                }
+            }
 
+            @Override
+            public void onFailure(Call<GetTopAnimeResponseType> call, Throwable t) {
+                showToast("Failed load data!");
+                closeDialog();
+            }
+        });
+    }
+
+    private void setUI() {
+        if (!listFailedTobeDownloaded) {
+            Picasso.get().load(topAnimeList.get(0).getImageUrl())
+                    .into(animeTopImage);
+
+            animeTopTitle.setText(topAnimeList.get(0).getTitle());
+            animeTopDescription.setText("Total Episodes :  " + topAnimeList.get(0).getEpisodes());
+
+            animeTopContainer.setOnClickListener(v -> gotoAnimeDetailActivity(topAnimeList.get(0)));
+        } else {
+            animeTopImage.setImageDrawable(getActivity().getDrawable(R.mipmap.ic_launcher_round));
+            animeTopTitle.setText(".......");
+            animeTopDescription.setText("..............");
+        }
+
+        animeTopHeading.setVisibility(View.VISIBLE);
+        animeTopContainer.setVisibility(View.VISIBLE);
+        animeListHeading.setVisibility(View.VISIBLE);
         setRecyclerView();
+        recyclerViewAnime.setVisibility(View.VISIBLE);
+    }
+
+    private void setRecyclerView() {
+        topAnimeList.remove(0);
+        adapter = new TopAnimeAdapter(getContext(), topAnimeList);
+
+        adapter.setOnItemClickListener((view, position) -> gotoAnimeDetailActivity(adapter.getAnimeAt(position)));
+
+        recyclerViewAnime.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        recyclerViewAnime.setAdapter(adapter);
+        recyclerViewAnime.setFocusable(false);
     }
 
     public void setSearchableRecyclerviewListener(SearchableRecyclerviewListener listener) {
@@ -68,51 +139,10 @@ public class AnimeFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_anime, container, false);
     }
 
-    private List<ArrayList<String>> getData() {
-        List<ArrayList<String>> animeList = new ArrayList<>();
-
-        ArrayList<String> animeDetail1 = new ArrayList<>();
-        animeDetail1.add("Naruto");
-        animeDetail1.add("Naruto Shippuden The movie");
-        animeList.add(animeDetail1);
-
-        ArrayList<String> animeDetail2 = new ArrayList<>();
-        animeDetail2.add("Kimono Ki ta");
-        animeDetail2.add("Adjkfksjdb sdlgd sdfv nsjdb");
-        animeList.add(animeDetail2);
-
-        ArrayList<String> animeDetail3 = new ArrayList<>();
-        animeDetail3.add("Naruto Shippuden The movie");
-        animeDetail3.add("lsdlsmckld aasdDD dDJKsddnkn Lkdn");
-        animeList.add(animeDetail3);
-
-        ArrayList<String> animeDetail4 = new ArrayList<>();
-        animeDetail4.add("Cinta sama dia");
-        animeDetail4.add("Adjkfksjdb sdlgd sdfv nsjdb");
-        animeList.add(animeDetail4);
-
-        return animeList;
-    }
-
-    private void setRecyclerView() {
-        recyclerViewAnime = getActivity().findViewById(R.id.recyclerview_anime);
-
-        List<ArrayList<String>> animeList = getData();
-
-        adapter = new AnimeAdapter(getContext(), animeList);
-
-        adapter.setOnItemClickListener((view, position) ->
-                gotoAnimeDetailActivity(adapter.getAnimeAt(position).get(0), adapter.getAnimeAt(position).get(1)));
-
-        recyclerViewAnime.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        recyclerViewAnime.setAdapter(adapter);
-        recyclerViewAnime.setFocusable(false);
-    }
-
-    private void gotoAnimeDetailActivity(String title, String description) {
+    private void gotoAnimeDetailActivity(Anime topAnime) {
         Intent animeDetailActivity = new Intent(getActivity(), AnimeDetailActivity.class);
-        animeDetailActivity.putExtra(AnimeDetailActivity.EXTRA_ANIME_DETAIL_TITLE, title);
-        animeDetailActivity.putExtra(AnimeDetailActivity.EXTRA_ANIME_DETAIL_DESCRIPTION, description);
+        animeDetailActivity.putExtra(AnimeDetailActivity.EXTRA_ANIME_DETAIL_TITLE, topAnime.getTitle());
+        animeDetailActivity.putExtra(AnimeDetailActivity.EXTRA_ANIME_DETAIL_DESCRIPTION, "Total Episodes :  " + topAnime.getEpisodes());
 
         getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
@@ -126,7 +156,24 @@ public class AnimeFragment extends Fragment {
         setSearchableRecyclerviewListener(null);
     }
 
+    private void showDialog(String message, boolean isCancelable) {
+        progressDialog.setMessage(message);
+        progressDialog.setCancelable(isCancelable);
+
+        if (!progressDialog.isShowing())
+            progressDialog.show();
+    }
+
+    private void closeDialog() {
+        if (progressDialog.isShowing())
+            progressDialog.dismiss();
+    }
+
+    private void showToast(String message) {
+        toast.show(null, message);
+    }
+
     public interface SearchableRecyclerviewListener {
-        void onSearch(AnimeAdapter adapter, String textPattern);
+        void onSearch(TopAnimeAdapter adapter, String textPattern);
     }
 }

@@ -12,20 +12,23 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import id.rllyhz.animeus.R;
+import id.rllyhz.animeus.api.response_type.GetTopAnimeResponseType.Anime;
 
-public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHolder> implements Filterable {
+public class TopAnimeAdapter extends RecyclerView.Adapter<TopAnimeAdapter.AnimeViewHolder> implements Filterable {
     private OnItemClickListener onItemClickListener;
     private OnItemLongClickListener onItemLongClickListener;
 
     private Context context;
-    private List<ArrayList<String>> animeListFull;
-    private List<ArrayList<String>> filteredAnimeList = new ArrayList<>();
+    private List<Anime> animeListFull;
+    private List<Anime> filteredAnimeList = new ArrayList<>();
 
-    public AnimeAdapter(Context context, List<ArrayList<String>> animeList) {
+    public TopAnimeAdapter(Context context, List<Anime> animeList) {
         this.context = context;
         this.animeListFull = animeList;
         this.filteredAnimeList.addAll(animeList);
@@ -39,7 +42,7 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHol
         this.onItemLongClickListener = listener;
     }
 
-    public ArrayList<String> getAnimeAt(int position) {
+    public Anime getAnimeAt(int position) {
         if (filteredAnimeList != null)
             return filteredAnimeList.get(position);
 
@@ -55,9 +58,14 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHol
 
     @Override
     public void onBindViewHolder(@NonNull AnimeViewHolder holder, int position) {
-        holder.animeImage.setBackground(context.getDrawable(R.drawable.ic_launcher_foreground));
-        holder.animeTitle.setText(filteredAnimeList.get(position).get(0));
-        holder.animeDescription.setText(filteredAnimeList.get(position).get(1));
+        Picasso.get()
+                .load(filteredAnimeList.get(position).getImageUrl())
+                .placeholder(R.mipmap.ic_launcher_round)
+                .error(R.mipmap.ic_launcher_round)
+                .into(holder.animeImage);
+
+        holder.animeTitle.setText(filteredAnimeList.get(position).getTitle());
+        holder.animeDescription.setText("Total Episodes :  " + filteredAnimeList.get(position).getEpisodes());
 
         // set onClick listener
         holder.itemView.setOnClickListener(v -> {
@@ -101,7 +109,7 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHol
     private Filter animeFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
-            List<ArrayList<String>> filteredList = new ArrayList<>();
+            List<Anime> filteredList = new ArrayList<>();
             filteredList.clear();
 
             if (constraint == null || constraint.length() == 0) {
@@ -109,9 +117,9 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHol
             } else {
                 String filterPattern = constraint.toString().toLowerCase().trim();
 
-                for (ArrayList<String> animeDetail : animeListFull) {
-                    if (animeDetail.get(0).toLowerCase().trim().contains(filterPattern)) {
-                        filteredList.add(animeDetail);
+                for (Anime topAnime : animeListFull) {
+                    if (topAnime.getTitle().toLowerCase().trim().contains(filterPattern)) {
+                        filteredList.add(topAnime);
                     }
                 }
             }
