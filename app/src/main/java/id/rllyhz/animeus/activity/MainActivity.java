@@ -2,14 +2,16 @@ package id.rllyhz.animeus.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
-import android.widget.ScrollView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -44,6 +46,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private CustomToast toast;
     private ProgressDialog progressDialog;
+    private Handler handler;
+    private Runnable runnable;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,6 +57,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         toast = new CustomToast(this, R.layout.custom_toast);
         progressDialog = new ProgressDialog(this);
+
+        handler = new Handler();
+        runnable = () -> {
+            showToast("Data not found!");
+        };
 
         setToolbar();
         initNavigationView();
@@ -63,9 +73,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             replaceFragment(animeFragment);
             navigationView.setCheckedItem(R.id.drawer_menu_anime);
         }
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         // SEARCH endpoint hasn't been implemented yet!
 
@@ -167,12 +174,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void initSearchView() {
         // searchView.setBackground(getDrawable(R.drawable.toolbar_search_view_bg));
         searchView.setQueryHint("Search ...");
-        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        searchView.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                showToast("Searching data for `" + query + "` ...");
+                searchAnime(query);
                 return false;
             }
 
@@ -182,6 +189,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return false;
             }
         });
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.Q)
+    private void searchAnime(String query) {
+        showToast("Searching data for `" + query + "` ...");
+
+        runnable = () -> showToast("Data not found");
+
+        if (handler != null && handler.hasCallbacks(runnable)) {
+            handler.removeCallbacks(runnable);
+        }
+
+        handler.postDelayed(runnable, 3000);
     }
 
     private void initNavigationView() {
@@ -201,6 +221,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toolbar = findViewById(R.id.toolbar_layout);
         CustomActionBar.init(this, toolbar, CustomActionBar.DEFAULT_HOME_AS_UP,
                 CustomActionBar.DEFAULT_STATUS_BAR_COLOR, CustomActionBar.STATUS_BAR_LIGHT_THEME);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
     private void showToast(String message) {
@@ -227,5 +250,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         animeFragment = null;
         mangaFragment = null;
         characterFragment = null;
+
+        if (handler != null) {
+            handler.removeCallbacks(runnable);
+            runnable = null;
+        }
     }
 }

@@ -41,6 +41,7 @@ public class AnimeFragment extends Fragment {
     private RecyclerView recyclerViewAnime;
     private TextView animeTopTitle, animeTopDescription, animeTopHeading, animeListHeading;
     private ImageView animeTopImage;
+    private TextView footerText;
 
     private ProgressDialog progressDialog;
     private CustomToast toast;
@@ -70,6 +71,8 @@ public class AnimeFragment extends Fragment {
         animeTopDescription = getActivity().findViewById(R.id.anime_top_description);
         animeTopImage = getActivity().findViewById(R.id.anime_top_image);
         recyclerViewAnime = getActivity().findViewById(R.id.recyclerview_anime);
+        footerText = getActivity().findViewById(R.id.footer_text);
+        footerText.setVisibility(View.GONE);
 
         AnimeAPIService animeAPIService = ApiClient.getAnimeApiServiceInstance().create(AnimeAPIService.class);
         Call<GetTopAnimeResponseType> call = animeAPIService.getTopAnime();
@@ -82,6 +85,7 @@ public class AnimeFragment extends Fragment {
                     topAnime = topAnimeList.get(0);
                     setUI();
                     closeDialog();
+                    footerText.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -122,7 +126,7 @@ public class AnimeFragment extends Fragment {
 
         adapter.setOnItemClickListener((view, position) -> gotoAnimeDetailActivity(adapter.getAnimeAt(position)));
 
-        recyclerViewAnime.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        recyclerViewAnime.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         recyclerViewAnime.setAdapter(adapter);
         recyclerViewAnime.setFocusable(false);
     }
