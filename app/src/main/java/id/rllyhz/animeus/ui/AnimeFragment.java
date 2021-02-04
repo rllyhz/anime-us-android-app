@@ -38,10 +38,13 @@ public class AnimeFragment extends Fragment {
     private SearchableRecyclerviewListener searchableRecyclerviewListener;
     private TopAnimeAdapter adapter;
 
+    private AnimeAPIService animeAPIService;
+    private Call<GetTopAnimeResponseType> call;
+
     private RelativeLayout animeTopContainer;
     private RecyclerView recyclerViewAnime;
-    private TextView animeTopTitle, animeTopDescription, animeTopHeading, animeListHeading;
-    private ImageView animeTopImage;
+    private TextView animeTopTitle, animeTopRankText, animeListHeading;
+    private ImageView animeTopImage, animeTopRankIcon;
     private TextView footerText;
 
     private ProgressDialog progressDialog;
@@ -58,6 +61,9 @@ public class AnimeFragment extends Fragment {
         toast = new CustomToast(getActivity(), R.layout.custom_toast);
         progressDialog = new ProgressDialog(getActivity());
 
+        animeAPIService = ApiClient.getAnimeApiServiceInstance().create(AnimeAPIService.class);
+        call = animeAPIService.getTopAnime();
+
         showDialog("Loading...", false);
     }
 
@@ -65,18 +71,21 @@ public class AnimeFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        animeTopHeading = getActivity().findViewById(R.id.anime_top_heading);
         animeListHeading = getActivity().findViewById(R.id.anime_list_heading);
         animeTopContainer = getActivity().findViewById(R.id.anime_top_container);
         animeTopTitle = getActivity().findViewById(R.id.anime_top_title);
-        animeTopDescription = getActivity().findViewById(R.id.anime_top_description);
+        animeTopRankText = getActivity().findViewById(R.id.anime_top_rank_status);
         animeTopImage = getActivity().findViewById(R.id.anime_top_image);
+        //animeTopRankIcon = getActivity().findViewById(R.id.anime_top_rank_icon);
         recyclerViewAnime = getActivity().findViewById(R.id.recyclerview_anime);
         footerText = getActivity().findViewById(R.id.footer_text);
         footerText.setVisibility(View.GONE);
 
-        AnimeAPIService animeAPIService = ApiClient.getAnimeApiServiceInstance().create(AnimeAPIService.class);
-        Call<GetTopAnimeResponseType> call = animeAPIService.getTopAnime();
+        fetchData();
+    }
+
+    private void fetchData() {
+        if (call == null) return;
 
         call.enqueue(new Callback<GetTopAnimeResponseType>() {
             @Override
@@ -103,11 +112,10 @@ public class AnimeFragment extends Fragment {
     private void setFailedUI() {
         animeTopImage.setBackground(getActivity().getDrawable(R.mipmap.ic_launcher_round));
         animeTopTitle.setText("Failed to load data");
-        animeTopDescription.setText("Please check your connection!");
+        animeTopRankText.setText("Please check your connection!");
 
         showDialog("Failed to load data", "Please check your connection!", true);
 
-        animeTopHeading.setVisibility(View.VISIBLE);
         animeTopContainer.setVisibility(View.VISIBLE);
         animeListHeading.setVisibility(View.VISIBLE);
     }
@@ -119,20 +127,19 @@ public class AnimeFragment extends Fragment {
                     .into(animeTopImage);
 
             animeTopTitle.setText(topAnime.getTitle());
-            animeTopDescription.setText("Total Episodes :  " + topAnime.getEpisodes());
+            animeTopRankText.setText("Total Episodes :  " + topAnime.getEpisodes());
 
             animeTopContainer.setOnClickListener(v -> gotoAnimeDetailActivity(topAnime));
         } else {
             animeTopImage.setImageDrawable(getActivity().getDrawable(R.mipmap.ic_launcher_round));
             animeTopTitle.setText(".......");
-            animeTopDescription.setText("..............");
+            animeTopRankText.setText("..............");
         }
 
-        animeTopHeading.setVisibility(View.VISIBLE);
         animeTopContainer.setVisibility(View.VISIBLE);
         animeListHeading.setVisibility(View.VISIBLE);
+
         setRecyclerView();
-        recyclerViewAnime.setVisibility(View.VISIBLE);
     }
 
     private void setRecyclerView() {
@@ -144,6 +151,7 @@ public class AnimeFragment extends Fragment {
         recyclerViewAnime.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         recyclerViewAnime.setAdapter(adapter);
         recyclerViewAnime.setFocusable(false);
+        recyclerViewAnime.setVisibility(View.VISIBLE);
     }
 
     public void setSearchableRecyclerviewListener(SearchableRecyclerviewListener listener) {

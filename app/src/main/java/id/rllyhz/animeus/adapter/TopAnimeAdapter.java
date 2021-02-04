@@ -19,6 +19,7 @@ import java.util.List;
 
 import id.rllyhz.animeus.R;
 import id.rllyhz.animeus.api.response_type.GetTopAnimeResponseType.Anime;
+import id.rllyhz.animeus.helper.RecycleviewItemAnimator;
 
 public class TopAnimeAdapter extends RecyclerView.Adapter<TopAnimeAdapter.AnimeViewHolder> implements Filterable {
     private OnItemClickListener onItemClickListener;
@@ -80,6 +81,8 @@ public class TopAnimeAdapter extends RecyclerView.Adapter<TopAnimeAdapter.AnimeV
 
             return false;
         });
+
+        RecycleviewItemAnimator.animateBottomUp(holder.itemView, position);
     }
 
     @Override
