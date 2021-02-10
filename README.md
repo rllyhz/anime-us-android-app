@@ -6,6 +6,7 @@ The features that have not been implemented yet:
     - url => `https://api.jikan.moe/v3/search/type?q=Fate/Zero&page=1`
     - type => {anime, manga, character, person}
 
+<br/>
 
 # **AnimeUs Android App**
 
