@@ -8,7 +8,7 @@ The features that have not been implemented yet:
 
 # **AnimeUs Android App**
 
-Application that provides some information of Anime, Manga, Characters. This app is an Android version of my WebApp Project, called [`AnimeUS Responsive Web`](https://github.com/anime-us-responsive-web).
+Application that provides some information of Anime, Manga, Characters. This app is an Android version of my WebApp Project, called [`AnimeUS Responsive Web`](https://github.com/rllyhz/anime-us-responsive-web).
 
 ### Features
 
